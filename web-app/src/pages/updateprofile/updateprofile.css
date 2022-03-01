@@ -1,0 +1,42 @@
+.updateprofile {
+    height: 100vh;
+    width: 100vw;
+    margin: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.inputBackground {
+    height: 500px;
+    width: 300px;
+    padding: 10px;
+    font-size:smaller;
+    background-color: lightseagreen;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    flex-direction: column;
+}
+
+.updateHeader {
+    font-size: large;
+    font-weight: bold;
+}
+
+.inputBox {
+    height: 30px;
+    width: 250px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.inputBoxLarge {
+    height: 100px;
+    width: 250px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
