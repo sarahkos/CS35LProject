@@ -11,16 +11,6 @@ const recipe = new mongoose.Schema({
   comments: [{ body: String, date: Date }],
   date: { type: Date, default: Date.now },
   published: Boolean,
-  image:
-  {
-    name: String,
-    desc: String,
-    img:
-    {
-      data: ArrayBuffer,
-      contentType: String
-    }
-  }
 });
 
-moduel.exports = mongoose.model('Recipe', recipe);
+module.exports = mongoose.model('Recipe', recipe);
