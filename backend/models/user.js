@@ -20,4 +20,4 @@ const user = new mongoose.Schema({
   liked: [{ type: Schema.Types.ObjectId, ref: 'Recipe' }],
 });
 
-moduel.exports = mongoose.model('User', user);
+module.exports = mongoose.model('User', user);
