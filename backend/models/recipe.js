@@ -10,7 +10,6 @@ const recipe = new mongoose.Schema({
   likes: Number,
   comments: [{ body: String, date: Date }],
   date: { type: Date, default: Date.now },
-  published: Boolean,
 });
 
 module.exports = mongoose.model('Recipe', recipe);
