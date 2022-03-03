@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const { Schema } = mongoose;
 
 const recipe = new mongoose.Schema({
-  Author: { 
+  author: { 
     type: Schema.ObjectId,
     ref: 'User',
   },
