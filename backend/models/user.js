@@ -17,6 +17,7 @@ const user = new mongoose.Schema({
   },
   bio: {
     type: String,
+    default: "",
   },
   recipies: [{ type: Schema.Types.ObjectId, ref: 'Recipe' }],
   liked: [{ type: Schema.Types.ObjectId, ref: 'Recipe' }],
