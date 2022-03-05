@@ -121,6 +121,22 @@ router.post("/users/login", async (req, res, next) => {
 
 });
 
+router.post("/users/logout", async (req, res, next) => {
+    
+    if (req.isAuthenticated()) {
+        req.logout();
+        return res.status(200).json({
+            msg: "User logged out successfully.",
+        });
+    }
+    else {
+        return res.status(400).json({
+            err: "No user is currently logged in.",
+        });
+    }
+
+});
+
 app.use('/api', router);
 
 app.listen(port, () => console.log(`Server running on port ${port}`));
