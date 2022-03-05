@@ -22,4 +22,11 @@ const user = new mongoose.Schema({
   liked: [{ type: Schema.Types.ObjectId, ref: 'Recipe' }],
 });
 
+user.set("toJSON", {
+  transform: function (doc, ret) {
+    delete ret.password;
+    return ret;
+  }
+});
+
 module.exports = mongoose.model('User', user);

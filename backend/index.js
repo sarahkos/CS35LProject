@@ -55,7 +55,7 @@ passport.use(new LocalStrategy({}, async (username, password, done) => {
         const user = await User.findOne({username}).select("+password");
 
         if(user && (await bcrypt.compare(password, user.password))) {
-            return done(null, user);
+            return done(null, user.toJSON());
         }
 
         return done(null, false);
@@ -84,10 +84,7 @@ router.post('/users', async (req, res) => {
         });
 
         return res.status(201).json({
-            user: {
-                id: user._id,
-                username: user.username,
-            },
+            user: user.toJSON(),
             msg: "User created successfully."
         });
 
@@ -115,10 +112,7 @@ router.post("/users/login", async (req, res, next) => {
                 return res.status(400).json({ err });
             }
             return res.status(200).json({
-                user: {
-                    id: user._id,
-                    username: user.username,
-                },
+                user,
                 msg: "User logged in successfully."
             })
         })
