@@ -13,11 +13,12 @@ const user = new mongoose.Schema({
   password:{
     type: String, 
     required: true,
+    select: false,
   },
   bio: {
     type: String,
   },
-  reipies: [{ type: Schema.Types.ObjectId, ref: 'Recipe' }],
+  recipies: [{ type: Schema.Types.ObjectId, ref: 'Recipe' }],
   liked: [{ type: Schema.Types.ObjectId, ref: 'Recipe' }],
 });
 

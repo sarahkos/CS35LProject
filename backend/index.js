@@ -52,7 +52,7 @@ passport.deserializeUser((id, done) => {
 
 passport.use(new LocalStrategy({}, async (username, password, done) => {
     try {
-        const user = await User.findOne({username});
+        const user = await User.findOne({username}).select("+password");
 
         if(user && (await bcrypt.compare(password, user.password))) {
             return done(null, user);
@@ -92,6 +92,11 @@ router.post('/users', async (req, res) => {
         });
 
     } catch(err) {
+        if (err.code === 11000) {
+            return res.status(400).json({
+                err: "Username is taken."
+            })
+        }
         return res.status(400).json({
             err
         });
