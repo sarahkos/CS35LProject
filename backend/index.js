@@ -3,63 +3,123 @@ const app = express();
 const cors = require('cors');
 const bcrypt = require('bcrypt');
 const mongoose = require('mongoose');
+const session = require('express-session');
+const MongoStore = require('connect-mongo');
+const passport = require('passport');
+const LocalStrategy = require('passport-local').Strategy;
+const process = require('process');
 
 const User = require('./models/user.js');
 const Recipe = require('./models/recipe.js');
-const process = require('process');
 
 require('dotenv').config({ path: './config.env' });
 const port = process.env.PORT || 3000;
 
 app.use(cors());
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 const uri = process.env.ATLAS_URI;
-mongoose.connect(uri, { useNewUrlParser: true });
-const connection = mongoose.connection;
-connection.once('open', () => {
-    console.log("MongoDB database connection established successfully");
+const clientPromise = mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
+    .then((m) => {
+        console.log("Connected to MongoDB");
+        return m.connection.getClient();
+    });
+
+
+app.use(session({
+    secret: 'test',
+    resave: false,
+    saveUninitialized: true,
+    cookie: { 
+        secure: true,
+        maxAge: 1000 * 60 * 60 * 24,
+    },
+    store: MongoStore.create({
+        clientPromise
+    })
+}));
+
+passport.serializeUser((user, done) => {
+    done(null, user._id);
 });
 
+passport.deserializeUser((id, done) => {
+    User.findById(id, (err, user) => {
+        done(err, user);
+    });
+});
 
+passport.use(new LocalStrategy({}, async (username, password, done) => {
+    try {
+        const user = await User.findOne({username});
+
+        if(user && (await bcrypt.compare(password, user.password))) {
+            return done(null, user);
+        }
+
+        return done(null, false);
+    } catch (err) {
+        return done(err, false);
+    }
+    
+}));
+
+app.use(passport.initialize());
+app.use(passport.session());
 
 var router = express.Router();
 
 router.post('/users', async (req, res) => {
+
+    try {
     
-    const { username, password } = req.body;
+        const { username, password } = req.body;
 
-    if (await User.findOne({ username })) {
-        return res.status(409).send("username is taken.");
+        const encryptedPassword = await bcrypt.hash(password, 10);
+
+        const user = await User.create({
+            username,
+            password: encryptedPassword,
+        });
+
+        return res.status(201).json({
+            user: {
+                id: user._id,
+                username: user.username,
+            },
+            msg: "User created successfully."
+        });
+
+    } catch(err) {
+        return res.status(400).json({
+            err
+        });
     }
-
-    const encryptedPassword = await bcrypt.hash(password, 10);
-
-    const user = await User.create({
-        username,
-        password: encryptedPassword,
-    });
-
-    res.status(201).json(user);
 
 });
 
-router.post("/users/login", async (req, res) => {
-
-    const { username, password } = req.body;
-
-    const user = await User.findOne({username});
-
-    if(user && (await bcrypt.compare(password, user.password))){
-        console.log("It worked!");
-        return res.status(200).json(user);
-    }
+router.post("/users/login", async (req, res, next) => {
     
-    return res.status(400).send("Invalid Login");
-    
+    passport.authenticate('local', (err, user) => {
+        if (!user) {
+            return res.status(400).json({ err: "Invalid login." });
+        }
+        req.logIn(user, (err) => {
+            if (err) {
+                return res.status(400).json({ err });
+            }
+            return res.status(200).json({
+                user: {
+                    id: user._id,
+                    username: user.username,
+                },
+                msg: "User logged in successfully."
+            })
+        })
+    })(req, res, next);
 
 });
-
 
 app.use('/api', router);
 
