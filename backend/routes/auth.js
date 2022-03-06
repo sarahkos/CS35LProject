@@ -29,6 +29,17 @@ passport.use(new LocalStrategy({}, async (username, password, done) => {
     
 }));
 
+function ensureAuthenticated(req, res, next) {
+    if (req.isAuthenticated()) {
+        return next();
+    }
+    else {
+        return res.status(401).json({
+            err: "No user is logged in.",
+        })
+    }
+}
+
 var router = require('express').Router();
 
 router.post('/', async (req, res) => {
@@ -80,20 +91,13 @@ router.post("/login", async (req, res, next) => {
     })(req, res, next);
 });
 
-router.post("/logout", async (req, res, next) => {
+router.post("/logout", ensureAuthenticated, async (req, res, next) => {
     
-    if (req.isAuthenticated()) {
-        req.logout();
-        return res.status(200).json({
-            msg: "User logged out successfully.",
-        });
-    }
-    else {
-        return res.status(400).json({
-            err: "No user is currently logged in.",
-        });
-    }
+    req.logout();
+    return res.status(200).json({
+        msg: "User logged out successfully.",
+    });
 
 });
 
-module.exports = {passport, router};
+module.exports = {passport, router, ensureAuthenticated};
