@@ -28,4 +28,21 @@ router.post("/self/bio", ensureAuthenticated, async (req, res, next) => {
 
 });
 
+router.get("/:username", async (req, res, next) => {
+
+    try {            
+        const user = await User.findOne({ username: req.params.username });
+        return res.status(200).json({
+            user,
+            msg: "User retrieved successfully.",
+        });
+
+    } catch (err) {
+        return res.status(400).json({
+            err
+        })
+    }
+
+});
+
 module.exports = router;
