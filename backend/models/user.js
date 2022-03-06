@@ -19,8 +19,8 @@ const user = new mongoose.Schema({
     type: String,
     default: "",
   },
-  recipies: [{ type: Schema.Types.ObjectId, ref: 'Recipe' }],
-  liked: [{ type: Schema.Types.ObjectId, ref: 'Recipe' }],
+  recipes: [{ type: Schema.ObjectId, ref: 'Recipe' }],
+  liked: [{ type: Schema.ObjectId, ref: 'Recipe' }],
 });
 
 user.set("toJSON", {

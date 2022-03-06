@@ -31,7 +31,7 @@ router.post("/self/bio", ensureAuthenticated, async (req, res, next) => {
 router.get("/:username", async (req, res, next) => {
 
     try {            
-        const user = await User.findOne({ username: req.params.username });
+        const user = await User.findOne({ username: req.params.username }).populate("recipes");
         if (!user) {
             return res.status(404).json({
                 err: "User not found.",

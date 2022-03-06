@@ -1,3 +1,4 @@
+const User = require('../models/user.js');
 const Recipe = require('../models/recipe.js');
 
 var router = require('express').Router();
@@ -13,6 +14,10 @@ router.post("/", ensureAuthenticated, async (req, res, next) => {
             title,
             text,
             author: req.user._id,
+        });
+
+        const recipes = await User.findByIdAndUpdate(req.user._id, {
+            $addToSet: { recipes: recipe._id }
         });
 
         return res.status(201).json({
@@ -40,6 +45,60 @@ router.get("/:recipe_id", async (req, res, next) => {
         return res.status(200).json({
             recipe,
             msg: "Recipe retrieved successfully.",
+        });
+
+    } catch (err) {
+        return res.status(400).json({
+            err
+        })
+    }
+
+});
+
+router.post("/:recipe_id/like", ensureAuthenticated, async (req, res, next) => {
+
+    try {            
+        const recipe = await Recipe.findByIdAndUpdate(req.params.recipe_id, {
+            $addToSet: { liked: req.user._id }
+        });
+        if (!recipe) {
+            return res.status(404).json({
+                err: "Recipe not found.",
+            });
+        }
+        const user = await User.findByIdAndUpdate(req.user._id, {
+            $addToSet: { liked: req.params.recipe_id }
+        });
+        return res.status(200).json({
+            recipe,
+            msg: "Recipe liked successfully.",
+        });
+
+    } catch (err) {
+        return res.status(400).json({
+            err
+        })
+    }
+
+});
+
+router.post("/:recipe_id/unlike", ensureAuthenticated, async (req, res, next) => {
+
+    try {            
+        const recipe = await Recipe.findByIdAndUpdate(req.params.recipe_id, {
+            $pull: { liked: req.user._id }
+        });
+        if (!recipe) {
+            return res.status(404).json({
+                err: "Recipe not found.",
+            });
+        }
+        const user = await User.findByIdAndUpdate(req.user._id, {
+            $pull: { liked: req.params.recipe_id }
+        });
+        return res.status(200).json({
+            recipe,
+            msg: "Recipe unliked successfully.",
         });
 
     } catch (err) {

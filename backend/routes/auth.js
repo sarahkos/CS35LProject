@@ -8,10 +8,13 @@ passport.serializeUser((user, done) => {
     done(null, user._id);
 });
 
-passport.deserializeUser((id, done) => {
-    User.findById(id, (err, user) => {
-        done(err, user);
-    });
+passport.deserializeUser(async (id, done) => {
+    try {
+        const user = await User.findById(id).populate("recipes");
+        done(null, user);
+    } catch (err) {
+        done(err, null);
+    }
 });
 
 passport.use(new LocalStrategy({}, async (username, password, done) => {
