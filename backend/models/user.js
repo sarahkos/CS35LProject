@@ -24,6 +24,7 @@ const user = new mongoose.Schema({
 });
 
 user.set("toJSON", {
+  virtuals: true,
   transform: function (doc, ret) {
     delete ret.password;
     return ret;

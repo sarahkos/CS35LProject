@@ -8,6 +8,7 @@ const process = require('process');
 
 const { passport, router: authRouter } = require('./routes/auth');
 const usersRouter = require('./routes/users');
+const recipesRouter = require('./routes/recipes');
 
 require('dotenv').config({ path: './config.env' });
 const port = process.env.PORT || 3000;
@@ -41,5 +42,6 @@ app.use(passport.session());
 
 app.use('/api/users', authRouter);
 app.use('/api/users', usersRouter);
+app.use('/api/recipes', recipesRouter);
 
 app.listen(port, () => console.log(`Server running on port ${port}`));
