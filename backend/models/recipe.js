@@ -10,7 +10,6 @@ const recipe = new mongoose.Schema({
   text: { type: String, required: true },
   ingredients: [String],
   liked: [{ type: Schema.ObjectId, ref: 'User', }],
-
   comments: [{
     body: { type: String, required: true }, 
     date: {
@@ -28,5 +27,7 @@ recipe.virtual('likes').get(function() {
 recipe.set("toJSON", {
   virtuals: true,
 });
+
+recipe.index({ title: "text" });
 
 module.exports = mongoose.model('Recipe', recipe);

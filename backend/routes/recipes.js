@@ -8,11 +8,12 @@ router.post("/", ensureAuthenticated, async (req, res, next) => {
 
     try {            
         
-        const {title, text} = req.body;
+        const {title, text, ingredients} = req.body;
 
         const recipe = await Recipe.create({
             title,
             text,
+            ingredients,
             author: req.user._id,
         });
 
@@ -23,6 +24,41 @@ router.post("/", ensureAuthenticated, async (req, res, next) => {
         return res.status(201).json({
             recipe,
             msg: "Recipe posted successfully.",
+        });
+
+    } catch (err) {
+        return res.status(400).json({
+            err
+        })
+    }
+
+});
+
+router.get("/", async (req, res, next) => {
+
+    var { page, limit, title, ingredients } = req.query;
+    page = page || 1;
+    limit = limit || 10;
+
+    var filters = {};
+
+    if (title) {
+        filters["$text"] = {
+            $search: title,
+        };
+    }
+    if (ingredients) {
+        filters.ingredients = {
+            $all: ingredients,
+        };
+    }
+
+    try {    
+        const recipes = await Recipe.find(filters).skip((page - 1) * limit).limit(limit);
+
+        return res.status(200).json({
+            recipes,
+            msg: "Recipes retrieved successfully.",
         });
 
     } catch (err) {
