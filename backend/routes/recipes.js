@@ -36,15 +36,15 @@ router.post("/", ensureAuthenticated, async (req, res, next) => {
 
 router.get("/", async (req, res, next) => {
 
-    var { page, limit, title, ingredients } = req.query;
+    var { page, limit, text, ingredients } = req.query;
     page = page || 1;
     limit = limit || 10;
 
     var filters = {};
 
-    if (title) {
+    if (text) {
         filters["$text"] = {
-            $search: title,
+            $search: text,
         };
     }
     if (ingredients) {
@@ -54,7 +54,9 @@ router.get("/", async (req, res, next) => {
     }
 
     try {    
-        const recipes = await Recipe.find(filters).skip((page - 1) * limit).limit(limit);
+        const recipes = await Recipe.find(filters)
+            .skip((page - 1) * limit)
+            .limit(limit);
 
         return res.status(200).json({
             recipes,

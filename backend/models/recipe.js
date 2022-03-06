@@ -28,6 +28,6 @@ recipe.set("toJSON", {
   virtuals: true,
 });
 
-recipe.index({ title: "text" });
+recipe.index({ title: "text", text: "text" });
 
 module.exports = mongoose.model('Recipe', recipe);
