@@ -56,7 +56,8 @@ router.get("/", async (req, res, next) => {
     try {    
         const recipes = await Recipe.find(filters)
             .skip((page - 1) * limit)
-            .limit(limit);
+            .limit(limit)
+            .populate("author");
 
         return res.status(200).json({
             recipes,
@@ -107,7 +108,7 @@ router.post("/:recipe_id/like", ensureAuthenticated, async (req, res, next) => {
         const user = await User.findByIdAndUpdate(req.user._id, {
             $addToSet: { liked: req.params.recipe_id }
         });
-        return res.status(200).json({
+        return res.status(201).json({
             recipe,
             msg: "Recipe liked successfully.",
         });
@@ -134,7 +135,7 @@ router.post("/:recipe_id/unlike", ensureAuthenticated, async (req, res, next) =>
         const user = await User.findByIdAndUpdate(req.user._id, {
             $pull: { liked: req.params.recipe_id }
         });
-        return res.status(200).json({
+        return res.status(201).json({
             recipe,
             msg: "Recipe unliked successfully.",
         });
@@ -146,5 +147,49 @@ router.post("/:recipe_id/unlike", ensureAuthenticated, async (req, res, next) =>
     }
 
 });
+
+router.get("/:recipe_id/comments", async (req, res, next) => {
+
+    try {            
+        const recipe = await Recipe.findById(req.params.recipe_id).populate("comments.author");
+        return res.status(200).json({
+            comments: recipe.comments,
+            msg: "Comments retrieved successfully.",
+        });
+
+    } catch (err) {
+        return res.status(400).json({
+            err
+        })
+    }
+
+});
+
+router.post("/:recipe_id/comments", ensureAuthenticated, async (req, res, next) => {
+
+    try {
+        const { comment } = req.body;
+
+        const recipe = await Recipe.findByIdAndUpdate(req.params.recipe_id, {
+            $push: {
+                comments: {
+                    author: req.user._id,
+                    text: comment,
+                }
+            }
+        }, { new: true }).populate("comments.author");
+        return res.status(200).json({
+            comments: recipe.comments,
+            msg: "Comment posted successfully.",
+        });
+
+    } catch (err) {
+        return res.status(400).json({
+            err
+        })
+    }
+
+});
+
 
 module.exports = router;

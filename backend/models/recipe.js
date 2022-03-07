@@ -9,9 +9,10 @@ const recipe = new mongoose.Schema({
   title: { type: String, required: true },
   text: { type: String, required: true },
   ingredients: [String],
-  liked: [{ type: Schema.ObjectId, ref: 'User', }],
+  liked: [{ type: Schema.ObjectId, ref: 'User' }],
   comments: [{
-    body: { type: String, required: true }, 
+    author: { type: Schema.ObjectId, ref: 'User' },
+    text: { type: String, required: true }, 
     date: {
       type: Date,
       default: Date.now,
