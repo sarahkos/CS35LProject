@@ -1,7 +1,7 @@
 import React from 'react';
 import "./updateprofile.css";
 
-export default class CreateAccount extends React.Component {
+export default class UpdateProfile extends React.Component {
 
     constructor(props) {
         super(props);
@@ -54,19 +54,19 @@ export default class CreateAccount extends React.Component {
                             <label>Change Username: </label>
                             <input id="userField" placeholder="Username" required defaultValue="testUsername" className="inputBox" />
                             {/*above, add value of current username from server*/}
-                            <span> Username must be between 6 and 15 characters. </span>
-                            <label>Change Password: </label>
+                            <span className="text"> Username must be between 6 and 15 characters. </span>
+                            <label className="textLabel">Change Password: </label>
                             {/*input current password? need to allow password update to go through?*/}
                             <input id="passField" type="password" 
                                 placeholder="New Password" className="inputBox" />
                             <input id="passField2" type="password" 
                                 placeholder="Retype New Password" className="inputBox" />
-                            <label>Change Bio: </label>
+                            <label className="textLabel" >Change Bio: </label>
                             <textarea id="bioField" placeholder="Bio" className="inputBoxLarge" defaultValue="testBio" />
                             <button type="button" className="submitButton" onClick={() => this.handleClick()}>
                                  Update Profile </button>
                         </form>
-                        <span> {this.state.errormessage} </span>
+                        <span className="textError"> {this.state.errormessage} </span>
                     </div>
                 </div>
             </div>

@@ -50,7 +50,7 @@ export default class CreateAccount extends React.Component {
                         <div className="createHeader"> Create Your Account </div>
                         <form>
                             <input id="userField" placeholder="Username" required className="inputBox" />
-                            <span> Username must be between 6 and 15 characters. </span>
+                            <span className="text"> Username must be between 6 and 15 characters. </span>
                             <input id="passField" type="password" 
                                 placeholder="Password" required className="inputBox" />
                             <input id="passField2" type="password" 
@@ -58,7 +58,7 @@ export default class CreateAccount extends React.Component {
                             <button type="button" className="submitButton" onClick={() => this.handleClick()}>
                                  Create Account </button>
                         </form>
-                        <span> {this.state.errormessage} </span>
+                        <span className="textError"> {this.state.errormessage} </span>
                     </div>
                 </div>
             </div>
