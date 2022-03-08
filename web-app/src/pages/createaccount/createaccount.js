@@ -3,6 +3,9 @@ import axios from 'axios';
 import {Redirect} from 'react-router-dom';
 import "./createaccount.css";
 
+const SERVER_URL = process.env.REACT_APP_SERVER_URL;
+const PATH_NEWUSER = SERVER_URL + '/api/users';
+
 export default class CreateAccount extends React.Component {
 
     constructor(props) {
@@ -43,7 +46,7 @@ export default class CreateAccount extends React.Component {
 
         const userObject = {username: username, password: password1};
 
-        axios.post('/api/users', userObject)
+        axios.post(PATH_NEWUSER, userObject)
             .then((res) => {
                 console.log(res.data)
             }).catch((error) => {
