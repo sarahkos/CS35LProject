@@ -30,7 +30,7 @@ export default function LoginPage(){
     const handleSignIn = async (event) =>{
         event.preventDefault();
         try {
-            let response = await axios.post(PATH_NEWUSER, userObject)
+            let response = await axios.post(PATH_NEWUSER, userObject, {withCredentials: true})
             console.log(response.data);
             //Empty the Input Boxes on the Login Page after Sign In
             setUsername(' ');
