@@ -1,5 +1,10 @@
 import React from 'react';
+import axios from 'axios';
 import "./updateprofile.css";
+
+const SERVER_URL = process.env.REACT_APP_SERVER_URL;
+const PATH_BIO = SERVER_URL + '/api/users/self/bio';
+//const PATH_USER = SERVER_URL + '/api/users/:username';
 
 export default class UpdateProfile extends React.Component {
 
@@ -11,56 +16,26 @@ export default class UpdateProfile extends React.Component {
     }
 
     handleClick() {
-        const username = document.getElementById("userField").value;
-        const password1 = document.getElementById("passField").value;
-        const password2 = document.getElementById("passField2").value;
 
-        //ADD VALIDATION: IF USERNAME NOT UNIQUE
-        //ADD VALIDATION: IF USERNAME SAME AS PREV USERNAME
-        //ADD VALIDATION: PASSWORD DIFF THAN CURRENT PASSWORD
-        var messages = Array(2).fill("");
-        var success = true;
-        if (username.length < 6 || username.length > 15)
-        {
-            messages[0] = "**Username must be between 6 and 15 characters.\n"
-            success = false;
+        const bio = document.getElementById('bioField').value;
 
-        }
-        if (password1 !== password2) {
-            messages[1] = "**Passwords do not match.\n"
-            success = false;
-        }
-        if (!success) {
-            this.setState({
-                errormessage: messages,
+        axios.post(PATH_BIO, bio)
+            .then((res) => {
+               console.log(res.data)
+            }).catch((error) => {
+                console.log(error)
             });
-            return;
-        } else {
-            this.setState({
-                errormessage: Array(2).fill(""),
-            });
-        }
-
-        //POST INPUT TO SERVER
     }
 
     render () {
+        //var username = axios.get(PATH_USER);
         return (
             <div>
                 <div className="updateprofile">
                     <div className="inputBackground">
                         <div className="updateHeader"> Update Your Profile </div>
+                        <div className="textLabel"> User: test </div>
                         <form>
-                            <label>Change Username: </label>
-                            <input id="userField" placeholder="Username" required defaultValue="testUsername" className="inputBox" />
-                            {/*above, add value of current username from server*/}
-                            <span className="text"> Username must be between 6 and 15 characters. </span>
-                            <label className="textLabel">Change Password: </label>
-                            {/*input current password? need to allow password update to go through?*/}
-                            <input id="passField" type="password" 
-                                placeholder="New Password" className="inputBox" />
-                            <input id="passField2" type="password" 
-                                placeholder="Retype New Password" className="inputBox" />
                             <label className="textLabel" >Change Bio: </label>
                             <textarea id="bioField" placeholder="Bio" className="inputBoxLarge" defaultValue="testBio" />
                             <button type="button" className="submitButton" onClick={() => this.handleClick()}>
