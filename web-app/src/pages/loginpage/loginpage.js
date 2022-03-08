@@ -1,5 +1,6 @@
 import React, {useState} from "react";
 import "./loginpage"
+import axios from 'axios';
 
 //still need to make an authentication that connects with the actual backend
 //need to make css page to format the design of the login page
@@ -31,6 +32,15 @@ export default function LoginPage(){
                 <buton type = "signUp" class= "btn-create"> Create new account</buton>
             </form>
     */
+
+    const userObject = {userName: userName, password: password};
+
+    axios.post('http://localhost:5000/api/users/login', userObject)
+    .then((res) => {
+        console.log(res.data)
+    }).catch((error) => {
+        console.log(error)
+    });
 
     return(
         <div className="login-page">
