@@ -1,5 +1,6 @@
 import React from 'react';
 import axios from 'axios';
+import {Redirect} from 'react-router-dom';
 import "./createaccount.css";
 
 export default class CreateAccount extends React.Component {
@@ -8,6 +9,7 @@ export default class CreateAccount extends React.Component {
         super(props);
         this.state = {
             errormessage: Array(2).fill(""),
+            redirect: false,
         };
     }
 
@@ -48,6 +50,13 @@ export default class CreateAccount extends React.Component {
                 console.log(error)
             });
 
+        this.setState({redirect: true})
+    }
+
+    renderRedirect() {
+        if (this.state.redirect) {
+            return <Redirect to='/' />
+        }
     }
 
     render () {
@@ -66,6 +75,7 @@ export default class CreateAccount extends React.Component {
                             <button type="button" className="submitButton" onClick={() => this.handleClick()}>
                                  Create Account </button>
                         </form>
+                        {this.renderRedirect()}
                         <span className="textError"> {this.state.errormessage} </span>
                     </div>
                 </div>
