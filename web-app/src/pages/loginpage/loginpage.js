@@ -1,4 +1,5 @@
 import React, {useState} from "react";
+import {Link} from 'react-router-dom';
 import "./loginpage"
 import axios from 'axios';
 
@@ -33,9 +34,9 @@ export default function LoginPage(){
             </form>
     */
 
-    const userObject = {userName: userName, password: password};
+    const userObject = {username: userName, password: password};
 
-    axios.post('http://localhost:5000/api/users/login', userObject)
+    axios.post('/api/users/login', userObject)
     .then((res) => {
         console.log(res.data)
     }).catch((error) => {
@@ -66,10 +67,8 @@ export default function LoginPage(){
                 <p> </p>
                 <button type = "submitClick" disabled={!checkRequirements()}> Sign In</button>
             </form>
-                <p> Don't have an Account? <br/>
-                {/* Try to get buttton to work*/}
-                <a href="http://localhost:3000/createaccount"> Create new Account </a>
-                </p>
+                <p> Don't have an Account? </p>
+                <Link to='/createaccount'> Create new Account </Link>
         </div>
     );
 }
