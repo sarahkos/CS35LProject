@@ -19,7 +19,7 @@ export default class UpdateProfile extends React.Component {
 
         const bio = document.getElementById('bioField').value;
 
-        axios.post(PATH_BIO, bio)
+        axios.post(PATH_BIO, bio, {withCredentials: true})
             .then((res) => {
                console.log(res.data)
             }).catch((error) => {
