@@ -58,7 +58,7 @@ export default function LoginPage(){
             </form>
                 <p> Don't have an Account? <br/>
                 {/* Try to get buttton to work*/}
-                <a href="#"> Create new Account </a>
+                <a href="http://localhost:3000/createaccount"> Create new Account </a>
                 </p>
         </div>
     );
