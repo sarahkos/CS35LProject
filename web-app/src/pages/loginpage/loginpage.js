@@ -65,31 +65,38 @@ export default function LoginPage(){
 
     return(
         <div className="container">
-            <div className="login-page">
-                <div className="header"> Sign In </div> 
-                <form onSubmit = {handleSignIn}>
-                    <label required className= "inputArea" htmlFor = "usernameLogin"> User Name: </label>
-                    <input 
-                        type = "username" 
-                        id = "exampleUsername" 
-                        value = {userName} 
-                        placeholder="Enter username here" 
-                        onChange={(event) => setUsername(event.target.value)}> 
-                    </input>
-                    <p> </p>
-                    <label required className= "inputArea" htmlFor = "passwordLogin"> Password: </label>
-                    <input 
-                        type = "password" 
-                        id = "examplePassword" 
-                        value = {password} 
-                        placeholder="Enter password here" 
-                        onChange={(event) => setPassword(event.target.value)}> 
-                    </input>
-                    <p> </p>
-                    <button type = "submitClick" className= "submitButton" disabled={!checkRequirements()}> Sign In</button>
-                </form>
-                <p> Don't have an Account? </p>
-                <Link to='/createaccount'> Create new Account </Link>
+            <div className= "column left">
+                <div className= "logo">
+                    <p> The Recipe </p>
+                </div>
+            </div>
+            <div className= "column right">
+                <div className="login-page">
+                    <div className="header"> Sign In </div> 
+                    <form onSubmit = {handleSignIn}>
+                        <label required className= "inputArea" htmlFor = "usernameLogin"> User Name: </label>
+                        <input 
+                            type = "username" 
+                            id = "exampleUsername" 
+                            value = {userName} 
+                            placeholder="Enter username here" 
+                            onChange={(event) => setUsername(event.target.value)}> 
+                        </input>
+                        <p> </p>
+                        <label required className= "inputArea" htmlFor = "passwordLogin"> Password: </label>
+                        <input 
+                            type = "password" 
+                            id = "examplePassword" 
+                            value = {password} 
+                            placeholder="Enter password here" 
+                            onChange={(event) => setPassword(event.target.value)}> 
+                        </input>
+                        <p> </p>
+                        <button type = "submitClick" className= "submitButton" disabled={!checkRequirements()}> Sign In</button>
+                    </form>
+                    <p required className="message"> Don't have an Account? </p>
+                    <Link to='/createaccount'> Create new Account </Link>
+                </div>
             </div>
         </div>
     );

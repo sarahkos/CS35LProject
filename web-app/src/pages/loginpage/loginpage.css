@@ -8,6 +8,33 @@
     justify-content: center;
 }
 
+.column{
+    float: left;
+    padding: 10px;
+    height: 300px;
+}
+
+.left {
+    width: 65%;
+}
+
+.right{
+    width: 35%;
+}
+
+.logo{
+    background-color: black;
+    height: 500px;
+    width: 500px;
+    text-align: center;
+    border-radius: 50%;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    margin: auto;
+    margin-top: -90px;
+}
+
 .login-page{
     background-color: black;
     height: 250px;
@@ -25,8 +52,15 @@
     margin-bottom: 20px;
 }
 
+
 p{
     color: white;
+    font-size: 5vw;
+}
+
+.message{
+    color:white;
+    font-size: medium;
 }
 
 .inputArea{
