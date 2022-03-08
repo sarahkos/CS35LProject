@@ -1,6 +1,7 @@
 import React from "react";
 import LoginPage from "./pages/loginpage/loginpage";
 import CreateAccount from "./pages/createaccount/createaccount"
+import Home from "./pages/home/Home"
 import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
 
 function App() {
@@ -14,6 +15,9 @@ function App() {
                     </Route>
                     <Route path = "/createaccount">
                         <CreateAccount />
+                    </Route>
+                    <Route path = "/home">
+                        <Home />
                     </Route>
                 </Switch>
             </div>

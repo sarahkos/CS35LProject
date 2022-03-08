@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import {Link} from 'react-router-dom';
+import {Link, useHistory} from 'react-router-dom';
 import "./loginpage"
 import axios from 'axios';
 
@@ -21,6 +21,12 @@ export default function LoginPage(){
         return userName.length >= 6 && userName.length <= 15;
     }
 
+    const history = useHistory();
+    const routeChange = () =>{ 
+    let path = '/Home'; 
+    history.push(path);
+  }
+
     const handleSignIn = async (event) =>{
         event.preventDefault();
         try {
@@ -32,6 +38,8 @@ export default function LoginPage(){
         }catch (error){
             console.log(error);
         }
+
+        routeChange();
     };
 
     /*
