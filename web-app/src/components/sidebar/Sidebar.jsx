@@ -6,8 +6,22 @@ import DinnerDiningIcon from '@mui/icons-material/DinnerDining';
 import LocalDiningIcon from '@mui/icons-material/LocalDining';
 import {Users} from "../../dummyData"
 import CloseFriend from "../closeFriend/CloseFriend";
+import { useEffect, useState } from 'react'
+import axios from "axios"
 
 export default function Sidebar() {
+
+  const [user, setUser] = useState({});
+
+  useEffect(()=>{
+      const fetchUser= async() => {
+        const res = await axios.get(`http://localhost:5000/api/users/hello123`);
+        setUser(res.data.user)
+        console.log(res)
+      };
+      fetchUser();
+    },[])
+
   return (
         <div className="sidebar">
             <div className="sidebarWrapper">
@@ -16,27 +30,22 @@ export default function Sidebar() {
 
                 <li className="sidebarListItem">
                   <DriveFileRenameOutlineIcon className="sidebarIcon"/>
-                  <span className="sidebarListItemText">Name: {Users[0].username} </span>
+                  <span className="sidebarListItemText">Name: {user.username} </span>
                 </li>
 
                 <li className="sidebarListItem">
                   <LocationCityIcon className="sidebarIcon"/>
-                  <span className="sidebarListItemText">Live in: {Users[0].liveIn} </span>
+                  <span className="sidebarListItemText">Bio: {user.bio} </span>
                 </li>
 
                 <li className="sidebarListItem">
                   <AccessTimeIcon className="sidebarIcon"/>
-                  <span className="sidebarListItemText">Cooking Experience: {Users[0].cookingExperience}</span>
+                  <span className="sidebarListItemText">Recipes: {user.recipes}</span>
                 </li>
 
                 <li className="sidebarListItem">
                   <DinnerDiningIcon className="sidebarIcon"/>
-                  <span className="sidebarListItemText">My favorite food is: {Users[0].favFood}</span>
-                </li>
-
-                <li className="sidebarListItem">
-                  <LocalDiningIcon className="sidebarIcon"/>
-                  <span className="sidebarListItemText">My favorite recipe is: {Users[0].favRecipeName}</span>
+                  <span className="sidebarListItemText">liked: {user.liked}</span>
                 </li> 
 
               </ul>
