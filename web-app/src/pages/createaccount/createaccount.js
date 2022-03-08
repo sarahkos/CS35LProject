@@ -1,4 +1,5 @@
 import React from 'react';
+import axios from 'axios';
 import "./createaccount.css";
 
 export default class CreateAccount extends React.Component {
@@ -15,7 +16,6 @@ export default class CreateAccount extends React.Component {
         const password1 = document.getElementById("passField").value;
         const password2 = document.getElementById("passField2").value;
 
-        //ADD VALIDATION: IF USERNAME NOT UNIQUE
         var messages = Array(2).fill("");
         var success = true;
         if (username.length < 6 || username.length > 15)
@@ -39,7 +39,15 @@ export default class CreateAccount extends React.Component {
             });
         }
 
-        //POST INPUT TO SERVER
+        const userObject = {username: username, password: password1};
+
+        axios.post('/api/users', userObject)
+            .then((res) => {
+                console.log(res.data)
+            }).catch((error) => {
+                console.log(error)
+            });
+
     }
 
     render () {
