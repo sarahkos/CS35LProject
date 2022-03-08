@@ -3,6 +3,33 @@ const User = require('../models/user.js');
 var router = require('express').Router();
 const { ensureAuthenticated } = require('./auth');
 
+router.get("/", async (req, res, next) => {
+
+    var { page, limit } = req.query;
+    page = page || 1;
+    limit = limit || 10;
+
+    var filters = {};
+
+    try {    
+        const users = await User.find(filters)
+            .skip((page - 1) * limit)
+            .limit(limit)
+            .populate("recipes");
+
+        return res.status(200).json({
+            users,
+            msg: "Users retrieved successfully.",
+        });
+
+    } catch (err) {
+        return res.status(400).json({
+            err
+        })
+    }
+
+});
+
 router.get("/self", ensureAuthenticated, async (req, res, next) => {
 
     return res.status(200).json({
