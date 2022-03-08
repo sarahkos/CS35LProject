@@ -3,6 +3,10 @@ import {Link} from 'react-router-dom';
 import "./loginpage"
 import axios from 'axios';
 
+
+const SERVER_URL = process.env.REACT_APP_SERVER_URL;
+const PATH_NEWUSER = SERVER_URL + '/api/users/login';
+
 //still need to make an authentication that connects with the actual backend
 //need to make css page to format the design of the login page
 
@@ -11,16 +15,24 @@ export default function LoginPage(){
     const [password, setPassword] = useState("");
     //const [errorMessage, setErrorMessage] = useState("");
 
+    const userObject = {username: userName, password: password};
+
     function checkRequirements(){
         return userName.length >= 6 && userName.length <= 15;
     }
 
-    function handleSignIn(event){
+    const handleSignIn = async (event) =>{
         event.preventDefault();
-        //Empty the Input Boxes on the Login Page after Sign In
-        setUsername('');
-        setPassword('');
-    }
+        try {
+            let response = await axios.post(PATH_NEWUSER, userObject)
+            console.log(response.data);
+            //Empty the Input Boxes on the Login Page after Sign In
+            setUsername(' ');
+            setPassword(' ');
+        }catch (error){
+            console.log(error);
+        }
+    };
 
     /*
     Trying to create another button for Creating a new Account
@@ -34,20 +46,20 @@ export default function LoginPage(){
             </form>
     */
 
-    const userObject = {username: userName, password: password};
-
+    /*
     axios.post('/api/users/login', userObject)
     .then((res) => {
         console.log(res.data)
     }).catch((error) => {
         console.log(error)
     });
+    */
 
     return(
         <div className="login-page">
             <h1> Sign In </h1>
             <form onSubmit = {handleSignIn}>
-                <label for = "usernameLogin"> User Name: </label>
+                <label htmlFor = "usernameLogin"> User Name: </label>
                 <input 
                     type = "username" 
                     id = "exampleUsername" 
@@ -56,7 +68,7 @@ export default function LoginPage(){
                     onChange={(event) => setUsername(event.target.value)}> 
                 </input>
                 <p> </p>
-                <label for = "passwordLogin"> Password: </label>
+                <label htmlFor = "passwordLogin"> Password: </label>
                 <input 
                     type = "password" 
                     id = "examplePassword" 
