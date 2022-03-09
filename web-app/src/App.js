@@ -9,7 +9,6 @@ function App() {
     return (
         <Router> 
             <div className="App">
-                <h1></h1>
                 <Switch>
                     <Route exact path="/"> 
                         <LoginPage />
@@ -18,7 +17,7 @@ function App() {
                         <CreateAccount />
                     </Route>
                     <Route path = "/Home">
-                        <UpdateProfile />
+                        <Home />
                     </Route>
                 </Switch>
             </div>
