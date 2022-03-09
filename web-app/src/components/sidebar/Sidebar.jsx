@@ -48,24 +48,17 @@ export default function Sidebar() {
                   <span className="sidebarListItemText">Bio: {user.bio} </span>
                 </li>
 
-                <li className="sidebarListItem">
-                  <AccessTimeIcon className="sidebarIcon"/>
-                  <span className="sidebarListItemText">Recipes: {user.recipes}</span>
-                </li>
-
-                <li className="sidebarListItem">
-                  <DinnerDiningIcon className="sidebarIcon"/>
-                  <span className="sidebarListItemText">liked: {user.liked}</span>
-                </li> 
-
               </ul>
 
               <button className="sidebarButton" onClick={handleClick}>Edit Profile</button>
               <hr className="sidebarHr"/>
               <h3 className="sidebarBottomTitle">My Recipes </h3>
               <ul className="sidebarFriendList">
-                {user.recipes?.map(u=>(
-                  <CloseFriend key= {u.id} recipe={u}/>
+                {user.recipes?.map(recipe=>(
+                  <li className="sidebarFriend">
+                    <img className="sidebarFriendImg" src={recipe.image} alt="" />
+                    <span className="sidebarFriendName">{recipe.title}</span>
+                  </li>
                 ))}
               </ul>
             </div>
