@@ -129,7 +129,7 @@ router.get("/:username/followers", async (req, res, next) => {
 
 });
 
-router.post("/:username/followers/follow", async (req, res, next) => {
+router.post("/:username/followers/follow", ensureAuthenticated, async (req, res, next) => {
 
     try {            
         const user = await User.findOneAndUpdate({ username: req.params.username }, {
@@ -152,12 +152,12 @@ router.post("/:username/followers/follow", async (req, res, next) => {
     } catch (err) {
         return res.status(400).json({
             err
-        })
+        });
     }
 
 });
 
-router.post("/:username/followers/unfollow", async (req, res, next) => {
+router.post("/:username/followers/unfollow", ensureAuthenticated, async (req, res, next) => {
 
     try {            
         const user = await User.findOneAndUpdate({ username: req.params.username }, {
