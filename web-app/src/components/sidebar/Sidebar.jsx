@@ -8,6 +8,7 @@ import {Users} from "../../dummyData"
 import CloseFriend from "../closeFriend/CloseFriend";
 import { useEffect, useState } from 'react'
 import axios from "axios"
+import {useHistory} from 'react-router-dom';
 
 export default function Sidebar() {
 
@@ -21,6 +22,12 @@ export default function Sidebar() {
       };
       fetchUser();
     },[])
+
+  const history = useHistory();
+  const handleClick = ()=> { 
+    let path = '/updateprofile'; 
+    history.push(path);
+  }
 
   return (
         <div className="sidebar">
@@ -50,7 +57,7 @@ export default function Sidebar() {
 
               </ul>
 
-              <button className="sidebarButton">Edit Profile</button>
+              <button className="sidebarButton" onClick={handleClick}>Edit Profile</button>
               <hr className="sidebarHr"/>
               <h3 className="sidebarBottomTitle">Recipe from your friends: </h3>
               <ul className="sidebarFriendList">
