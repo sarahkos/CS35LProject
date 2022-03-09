@@ -4,7 +4,9 @@ import { MoreVert } from "@mui/icons-material";
 import { useEffect, useState } from "react";
 import axios from "axios"
 import {format} from "timeago.js"
- 
+
+const SERVER_URL = process.env.REACT_APP_SERVER_URL;
+
 export default function Post({post}) {
   const [like, setLike] = useState(post.likes)
   const [isLiked, setIsLiked] = useState(false)

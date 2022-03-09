@@ -102,3 +102,7 @@
     object-fit: cover;
     cursor: pointer;
 }
+
+.logoutbutton {
+    font-weight: bold;
+}
