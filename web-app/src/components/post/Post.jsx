@@ -11,16 +11,22 @@ export default function Post({post}) {
   const [like, setLike] = useState(post.likes)
   const [isLiked, setIsLiked] = useState(false)
   const [user, setUser] = useState({});
+  const [comments, setComments] = useState([]);
 
 
   useEffect(()=>{
-    const fetchUser= async() => {
-      const res = await axios.get(`/users/${post.userId}`);
-      setUser(res.data)
+    let isMounted = true;
+    const fetchComments= async() => {
+      const res = await axios.get(SERVER_URL + '/api/recipes/' + post._id + '/comments');
+      if (isMounted)
+        setComments(res.data.comments);
+    console.log(res.data);
+    console.log(comments);
+    return () => { isMounted = false};
       
     };
-    fetchUser();
-  },[post.userId])
+    fetchComments();
+  },[])
 
 
  const likeHandler = ()=>{
@@ -62,7 +68,6 @@ export default function Post({post}) {
         <div className="postWrapper">
             <div className="postTop">
                 <div className="postTopLeft">
-                    <img className="postProfileImg" src= {user.profilePicture || "assets/person/noavatar.png"} alt="" />
                     <span className="postUserName">
                         {post.author.username}
                     </span>
@@ -87,7 +92,7 @@ export default function Post({post}) {
             <div className="postBottomComments">
                 <span className="postCommentText"> comments</span>
                 <div>
-                    {post.comments.map((comment) => (
+                   {comments.map((comment) => (
                         <div className="commentsWrapper">
                             <div className="commentTopLeft">
                                 <span className="postUserName">
@@ -99,7 +104,7 @@ export default function Post({post}) {
                                 <span className="commentText">{comment.text}</span>
                             </div>
                         </div>
-                    ))}
+                    ))} 
                 </div>
                 <div className="commentBottom">
                     <input id="commentField" placehoder="have a comment?" className="commentInput"/>
