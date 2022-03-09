@@ -13,7 +13,10 @@ const recipesRouter = require('./routes/recipes');
 require('dotenv').config({ path: './config.env' });
 const port = process.env.PORT || 3000;
 
-app.use(cors());
+app.use(cors({
+    credentials: true,
+    origin: process.env.FRONTEND_DOMAIN,
+}));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
@@ -29,8 +32,7 @@ app.use(session({
     resave: false,
     saveUninitialized: true,
     cookie: { 
-        secure: true,
-        maxAge: 1000 * 60 * 60 * 24,
+        maxAge: 1000 * 60 * 60 * 24,        //maxAge is one day
     },
     store: MongoStore.create({
         clientPromise

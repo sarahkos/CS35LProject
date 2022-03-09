@@ -1,13 +1,27 @@
 const User = require('../models/user.js');
 const Recipe = require('../models/recipe.js');
 
+
 var router = require('express').Router();
 const { ensureAuthenticated } = require('./auth');
 
-router.post("/", ensureAuthenticated, async (req, res, next) => {
+const multer = require('multer');
+const storage = multer.diskStorage({
+    destination: (req, file, cb) => {
+        cb(null, 'uploads/')
+    },
+    filename: (req, file, cb) => {
+        cb(null, file.fieldname + '-' + Date.now())
+    }
+});
+const upload = multer({ storage: storage });
+  
+
+
+router.post("/", ensureAuthenticated, upload.single('image'), async (req, res, next) => {
 
     try {            
-        
+        console.log(req.file);
         const {title, text, ingredients} = req.body;
 
         const recipe = await Recipe.create({
@@ -15,6 +29,8 @@ router.post("/", ensureAuthenticated, async (req, res, next) => {
             text,
             ingredients,
             author: req.user._id,
+            image: file.req.path
+
         });
 
         const recipes = await User.findByIdAndUpdate(req.user._id, {
@@ -36,7 +52,7 @@ router.post("/", ensureAuthenticated, async (req, res, next) => {
 
 router.get("/", async (req, res, next) => {
 
-    var { page, limit, text, ingredients } = req.query;
+    var { page, limit, text, ingredients} = req.query;
     page = page || 1;
     limit = limit || 10;
 

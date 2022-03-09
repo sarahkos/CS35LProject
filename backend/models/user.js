@@ -21,6 +21,8 @@ const user = new mongoose.Schema({
   },
   recipes: [{ type: Schema.ObjectId, ref: 'Recipe' }],
   liked: [{ type: Schema.ObjectId, ref: 'Recipe' }],
+  following: [{ type: Schema.ObjectId, ref: 'User' }],
+  followers: [{ type: Schema.ObjectId, ref: 'User' }]
 });
 
 user.set("toJSON", {
