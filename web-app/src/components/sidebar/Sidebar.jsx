@@ -10,13 +10,16 @@ import { useEffect, useState } from 'react'
 import axios from "axios"
 import {useHistory} from 'react-router-dom';
 
+const SERVER_URL = process.env.REACT_APP_SERVER_URL;
+const PATH_PROFILE = SERVER_URL + '/api/users/self';
+
 export default function Sidebar() {
 
   const [user, setUser] = useState({});
 
   useEffect(()=>{
       const fetchUser= async() => {
-        const res = await axios.get(`http://localhost:5000/api/users/self`,{withCredentials: true});
+        const res = await axios.get(PATH_PROFILE,{withCredentials: true});
         setUser(res.data.user)
         console.log(res)
       };
