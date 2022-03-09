@@ -87,3 +87,36 @@
     border-bottom: 1px dashed gray;
     font-size: 15px;
 }
+
+.commentsWrapper{
+    padding: 10px;
+}
+
+.commentTopLeft{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.commentCenter{
+    margin: 20px 0;
+}
+
+.commentBottom{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.commentField{
+    height: 30px;
+    width: 100%;
+    background-color: white;
+    border-radius: 8px;
+    display: flex;
+    justify-content: center;
+}
+
+.commentText{
+    font-size: 12px;
+}

@@ -45,6 +45,18 @@ export default function Post({post}) {
     }
  }
 
+ const commentClick = ()=>{
+    const comment_text = document.getElementById("commentField").value;
+
+    axios.post(SERVER_URL + '/api/recipes/' + post._id + '/comments', {comment_text}, {withCredentials: true})
+        .then(res => {
+            console.log(res.data);
+        })
+        .catch(err => {
+            console.log(err);
+        });
+ }
+
   return (
     <div className="post">
         <div className="postWrapper">
@@ -71,8 +83,27 @@ export default function Post({post}) {
                     <img className="likeIcon" src="assets/heart.png" onClick={likeHandler} alt="" />
                     <space className="postLikeCounter">{like} people like it</space>
                 </div>
-                <div className="postBottomRight">
-                    <span className="postCommentText">{post.comments} comments</span>
+            </div>
+            <div className="postBottomComments">
+                <span className="postCommentText"> comments</span>
+                <div>
+                    {post.comments.map((comment) => (
+                        <div className="commentsWrapper">
+                            <div className="commentTopLeft">
+                                <span className="postUserName">
+                                    {comment.author.username}
+                                </span>
+                                <span className="postDate">{format(comment.date)}</span>
+                            </div>
+                            <div className="commentCenter">
+                                <span className="commentText">{comment.text}</span>
+                            </div>
+                        </div>
+                    ))}
+                </div>
+                <div className="commentBottom">
+                    <input id="commentField" placehoder="have a comment?" className="commentInput"/>
+                    <button className="commentButton" onClick={commentClick}>Post Comment</button>
                 </div>
             </div>
         </div>       
