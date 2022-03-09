@@ -15,8 +15,11 @@ function App() {
                     </Route>
                     <Route path = "/createaccount">
                         <CreateAccount />
-                    </Route>
+                    </Route>  
                     <Route path = "/Home">
+                        <Home />
+                    </Route>
+                    <Route path='/updateprofile'>
                         <UpdateProfile />
                     </Route>
                 </Switch>

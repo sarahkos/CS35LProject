@@ -14,11 +14,11 @@
     padding: 30px;
     font-size:smaller;
     background-color: black;
-    align-items: center;
     justify-content: center;
     display: flex;
     flex-direction: column;
     border-radius: 30px;
+    align-items: center;
 }
 
 .updateHeader {
@@ -27,25 +27,12 @@
     color:#e9e5de;
 }
 
-.inputBox {
-    height: 30px;
-    width: 100%;
-    display: flex;
-    border-radius: 12px;
-    background-color: white;
-    justify-content: center;
-    align-items: center;
-
-}
 
 .inputBoxLarge {
     height: 100px;
     width: 100%;
-    display: flex;
     border-radius: 12px;
     background-color: white;
-    justify-content: center;
-    align-items: center;
 }
 
 .submitButton {
@@ -53,11 +40,10 @@
     color: black;
     font-weight: bold;
     font-size: large;
-    display: flex;
-    justify-content: center;
     border-radius: 8px;
     height: 30px;
-    width: 180px;
+    width: 100%;
+    align-self: center;
 }
 
 .textError {
@@ -73,6 +59,11 @@
 .textLabel {
     color: #e9e5de;
     size: 24px;
-    align-items: left;
+    font-weight: bold;
+}
+
+.linkbutton {
+    color: #e9e5de;
+    size: 24px;
     font-weight: bold;
 }
