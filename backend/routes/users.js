@@ -1,4 +1,5 @@
 const User = require('../models/user.js');
+const Recipe = require('../models/recipe.js');
 
 var router = require('express').Router();
 const { ensureAuthenticated } = require('./auth');
@@ -38,6 +39,35 @@ router.get("/self", ensureAuthenticated, async (req, res, next) => {
     });
 
 });
+
+router.get("/self/feed", ensureAuthenticated, async (req, res, next) => {
+
+    try {
+
+        var { page, limit } = req.query;
+        page = page || 1;
+        limit = limit || 10;
+
+        const feed = await Recipe.find({
+            author: {$in: req.user.following},
+        })
+        .sort({ date: "desc" })
+        .skip((page - 1) * limit)
+        .limit(limit);
+        return res.status(200).json({
+            feed,
+            msg: "Feed retrieved successfully."
+        });
+
+    } catch (err) {
+        console.log(err);
+        return res.status(400).json({
+            err
+        })
+    }
+
+});
+
 
 router.post("/self/bio", ensureAuthenticated, async (req, res, next) => {
 
