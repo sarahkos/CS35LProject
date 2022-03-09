@@ -15,7 +15,7 @@ export default function Sidebar() {
 
   useEffect(()=>{
       const fetchUser= async() => {
-        const res = await axios.get(`http://localhost:5000/api/users/hello123`);
+        const res = await axios.get(`http://localhost:5000/api/users/self`,{withCredentials: true});
         setUser(res.data.user)
         console.log(res)
       };
