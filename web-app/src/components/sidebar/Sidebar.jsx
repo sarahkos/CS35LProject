@@ -62,10 +62,10 @@ export default function Sidebar() {
 
               <button className="sidebarButton" onClick={handleClick}>Edit Profile</button>
               <hr className="sidebarHr"/>
-              <h3 className="sidebarBottomTitle">Recipe from your friends: </h3>
+              <h3 className="sidebarBottomTitle">My Recipes </h3>
               <ul className="sidebarFriendList">
-                {Users.map(u=>(
-                  <CloseFriend key= {u.id} user={u}/>
+                {user.recipes?.map(u=>(
+                  <CloseFriend key= {u.id} recipe={u}/>
                 ))}
               </ul>
             </div>
