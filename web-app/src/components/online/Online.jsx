@@ -6,7 +6,7 @@ export default function Online({user}) {
   const SERVER_URL = process.env.REACT_APP_SERVER_URL;
 
   const followHandler = ()=>{
-       axios.post(SERVER_URL + '/api/users/' + user.username + '/followers/follow', {withCredentials: true})
+       axios.post(SERVER_URL + '/api/users/' + user.username + '/followers/follow', {}, {withCredentials: true})
            .then(res => {
                console.log(res.data);
            })
@@ -16,7 +16,7 @@ export default function Online({user}) {
 }
 
 const unfollowHandler = ()=>{
-     axios.post(SERVER_URL + '/api/users/' + user.username + '/followers/unfollow', {withCredentials: true})
+     axios.post(SERVER_URL + '/api/users/' + user.username + '/followers/unfollow', {}, {withCredentials: true})
          .then(res => {
              console.log(res.data);
          })

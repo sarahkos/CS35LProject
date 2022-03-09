@@ -9,7 +9,7 @@ export default function Topbar() {
 
   const handleClick = async ()=> {
     try {
-      await axios.post(PATH_LOGOUT, {withCredentials: true})
+      await axios.post(PATH_LOGOUT, {}, {withCredentials: true})
         .then(res => {
           console.log(res.data)
         })
