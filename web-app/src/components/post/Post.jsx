@@ -42,6 +42,7 @@ export default function Post({post}) {
                 </div>
             </div>
             <div className="postCenter">
+                <span className="postTitle">{post?.title}{"\n"}</span>
                 <span className="postText">{post?.text}</span>
                 <img className="postImg" src={post.photo} alt="" />
             </div>

@@ -17,7 +17,7 @@ function App() {
                         <CreateAccount />
                     </Route>
                     <Route path = "/Home">
-                        <Home />
+                        <UpdateProfile />
                     </Route>
                 </Switch>
             </div>
