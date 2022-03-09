@@ -1,7 +1,26 @@
 import "./topbar.css"
 import { Search, Person, Chat, Notifications } from "@mui/icons-material"
+import axios from 'axios';
+
+const SERVER_URL = process.env.REACT_APP_SERVER_URL;
+const PATH_LOGOUT = SERVER_URL + '/api/users/logout';
  
 export default function Topbar() {
+
+  const handleClick = async ()=> {
+    try {
+      await axios.post(PATH_LOGOUT, {withCredentials: true})
+        .then(res => {
+          console.log(res.data)
+        })
+        .catch(err => {
+          console.log(err)
+        });
+  }catch (error){
+      console.log(error);
+  }
+
+   }
   return (
     <div className="topbarContainer">
         <div className="topbarLeft">
@@ -33,7 +52,7 @@ export default function Topbar() {
               <span className="topbarIconBadge">1</span>
             </div> */}
           </div>
-          <img src="/assets/person/1.jpg" alt="" className="topbarImg" />
+          <button className="logoutbutton" onClick={handleClick}>Logout</button>
         </div>
     </div>
   )
