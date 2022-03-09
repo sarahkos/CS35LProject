@@ -52,9 +52,9 @@ export default function Post({post}) {
  }
 
  const commentClick = ()=>{
-    const comment_text = document.getElementById("commentField").value;
+    const comment = document.getElementById("commentField").value;
 
-    axios.post(SERVER_URL + '/api/recipes/' + post._id + '/comments', {comment_text}, {withCredentials: true})
+    axios.post(SERVER_URL + '/api/recipes/' + post._id + '/comments', {comment}, {withCredentials: true})
         .then(res => {
             console.log(res.data);
         })
@@ -107,8 +107,10 @@ export default function Post({post}) {
                     ))} 
                 </div>
                 <div className="commentBottom">
-                    <input id="commentField" placehoder="have a comment?" className="commentInput"/>
+                    <form>
+                    <input id="commentField" placehoder="have a comment?" type="text" className="commentInput"/>
                     <button className="commentButton" onClick={commentClick}>Post Comment</button>
+                    </form>
                 </div>
             </div>
         </div>       
