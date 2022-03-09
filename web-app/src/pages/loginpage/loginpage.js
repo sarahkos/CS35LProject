@@ -66,7 +66,7 @@ export default function LoginPage(){
     return(
         <div className="container">
             <div className= "column left">
-                <div className= "logo">
+                <div className= "loginlogo">
                     <p> The Recipe </p>
                 </div>
             </div>

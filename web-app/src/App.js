@@ -9,16 +9,21 @@ function App() {
     return (
         <Router> 
             <div className="App">
-                <h1></h1>
                 <Switch>
                     <Route exact path="/"> 
                         <LoginPage />
                     </Route>
                     <Route path = "/createaccount">
                         <CreateAccount />
+<<<<<<< HEAD
                     </Route>  
                     <Route path = "/Home">
                         <Home />
+=======
+                    </Route>
+                    <Route path = "/Home">
+                        <UpdateProfile />
+>>>>>>> 7108291fe855bb57bd0f06eb92e735b8fe244330
                     </Route>
                 </Switch>
             </div>
