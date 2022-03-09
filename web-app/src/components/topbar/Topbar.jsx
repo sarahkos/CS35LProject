@@ -6,7 +6,7 @@ export default function Topbar() {
     <div className="topbarContainer">
         <div className="topbarLeft">
         <img className="logoImg" src="/assets/logo.png" alt="" />
-          <span className="logo">The Recipe</span>
+          <span className="logoTop">The Recipe</span>
         </div>
         <div className="topbarCenter">
           <div className="searchbar">

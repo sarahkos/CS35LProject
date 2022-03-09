@@ -6,8 +6,12 @@ import { useEffect, useState } from "react";
 import axios from "axios"
 import { red } from "@mui/material/colors";
 
+
+
 export default function Feed() {
   const [posts,setPosts] = useState([])
+
+  const SERVER_URL = process.env.REACT_APP_SERVER_URL;
 
   useEffect(()=>{
     const fetchPosts = async() => {
