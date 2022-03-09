@@ -3,23 +3,51 @@ import {PermMedia} from "@mui/icons-material"
 import { useRef, useState } from "react"
 import axios from "axios"
 
+const SERVER_URL = process.env.REACT_APP_SERVER_URL;
+
 export default function Share() {
 
     // const desc = useRef();
     const [file,setFile] = useState(null)
+    const [recipeid, setRecipeId] = useState("")
 
     const submitHandler = async (e) =>{
         e.preventDefault()
-        const newPost = {
-            title: "title", 
-            text: "it was good",
-            ingredients: "rice"
-        }
-        try {
-          await axios.post("/recipes", newPost)
-        }catch(err){
 
+        const title_text = document.getElementById("titleField").value;
+        const body_text = document.getElementById("instructionField").value;
+        const ingredient_text = document.getElementById("ingredientField").value;
+
+        const ingredient_array = ingredient_text.split(',');
+
+        const RecipeObject = {title: title_text, text: body_text, ingredients: ingredient_array};
+
+        const formData = new FormData();
+        formData.append('File', file);
+        
+        const textHandler = async () => {
+            await axios.post(SERVER_URL + "/api/recipes", RecipeObject, {withCredentials: true})
+                .then(res => {
+                    console.log(res.data);
+                    const recipe_id = res.data.recipe.id;
+                    {axios.post(SERVER_URL + '/api/recipes/' + recipe_id + '/image', {formData}, {withCredentials: true})
+                    .then(response => {
+                        console.log(response.data);
+                    })
+                    .catch(error => {
+                        console.log(error);
+                    });}
+                })
+                .catch(err => {
+                    console.log(err)
+                });
         }
+        textHandler();
+        
+
+        
+
+        
     }
 
 
@@ -27,9 +55,12 @@ export default function Share() {
     <div className="share">
         <div className="shareWrapper">
             <div className="shareTop">
-                <img className="shareProfileImg" src="/assets/person/1.jpg" alt="" />
-                <input placeholder="What recipe is in your mind?"
-                className="shareInput"/>
+                <span className="shareOptionText">Share a Recipe</span>
+                <form>
+                    <input id="titleField" placeholder="Title" className="shareInput"/>
+                    <input id="ingredientField" placeholder="Ingredients as comma separated list" className="shareInput" />
+                    <textarea id="instructionField" placeholder="Instructions" className="shareInput" />
+                </form>
                 {/* ref ={desc} */}
             </div>
             <hr className="shareHr"/>
