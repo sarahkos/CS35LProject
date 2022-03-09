@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 import {Link, useHistory} from 'react-router-dom';
-import "./loginpage"
+import "./loginpage.css"
 import axios from 'axios';
 
 
@@ -33,8 +33,8 @@ export default function LoginPage(){
             let response = await axios.post(PATH_NEWUSER, userObject, {withCredentials: true})
             console.log(response.data);
             //Empty the Input Boxes on the Login Page after Sign In
-            setUsername(' ');
-            setPassword(' ');
+            setUsername('');
+            setPassword('');
         }catch (error){
             console.log(error);
         }
@@ -64,31 +64,40 @@ export default function LoginPage(){
     */
 
     return(
-        <div className="login-page">
-            <h1> Sign In </h1>
-            <form onSubmit = {handleSignIn}>
-                <label htmlFor = "usernameLogin"> User Name: </label>
-                <input 
-                    type = "username" 
-                    id = "exampleUsername" 
-                    value = {userName} 
-                    placeholder="Enter username here" 
-                    onChange={(event) => setUsername(event.target.value)}> 
-                </input>
-                <p> </p>
-                <label htmlFor = "passwordLogin"> Password: </label>
-                <input 
-                    type = "password" 
-                    id = "examplePassword" 
-                    value = {password} 
-                    placeholder="Enter password here" 
-                    onChange={(event) => setPassword(event.target.value)}> 
-                </input>
-                <p> </p>
-                <button type = "submitClick" disabled={!checkRequirements()}> Sign In</button>
-            </form>
-                <p> Don't have an Account? </p>
-                <Link to='/createaccount'> Create new Account </Link>
+        <div className="container">
+            <div className= "column left">
+                <div className= "loginlogo">
+                    <p> The Recipe </p>
+                </div>
+            </div>
+            <div className= "column right">
+                <div className="login-page">
+                    <div className="header"> Sign In </div> 
+                    <form onSubmit = {handleSignIn}>
+                        <label required className= "inputArea" htmlFor = "usernameLogin"> User Name: </label>
+                        <input 
+                            type = "username" 
+                            id = "exampleUsername" 
+                            value = {userName} 
+                            placeholder="Enter username here" 
+                            onChange={(event) => setUsername(event.target.value)}> 
+                        </input>
+                        <p> </p>
+                        <label required className= "inputArea" htmlFor = "passwordLogin"> Password: </label>
+                        <input 
+                            type = "password" 
+                            id = "examplePassword" 
+                            value = {password} 
+                            placeholder="Enter password here" 
+                            onChange={(event) => setPassword(event.target.value)}> 
+                        </input>
+                        <p> </p>
+                        <button type = "submitClick" className= "submitButton" disabled={!checkRequirements()}> Sign In</button>
+                    </form>
+                    <p required className="message"> Don't have an Account? </p>
+                    <Link to='/createaccount'> Create new Account </Link>
+                </div>
+            </div>
         </div>
     );
 }

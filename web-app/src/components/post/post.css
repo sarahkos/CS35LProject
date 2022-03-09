@@ -48,6 +48,11 @@
     margin: 20px 0;
 }
 
+.postTitle{
+    font-size: 14px;
+    font-weight: bold;
+}
+
 .postImg{
     margin-top: 20px;
     width: 100%;
