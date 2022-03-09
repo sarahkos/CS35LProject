@@ -19,7 +19,7 @@ const recipe = new mongoose.Schema({
     },
   }],
   date: { type: Date, default: Date.now },
-  image: { type: String, required: true }
+  image: { type: String }
 });
 
 recipe.virtual('likes').get(function() {

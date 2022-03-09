@@ -5,23 +5,23 @@ const Recipe = require('../models/recipe.js');
 var router = require('express').Router();
 const { ensureAuthenticated } = require('./auth');
 
+const { v4: uuidv4 } = require('uuid');
+
+const path = require('path');
 const multer = require('multer');
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
-        cb(null, 'uploads/')
+        cb(null, path.join(__dirname, '../images/'));
     },
     filename: (req, file, cb) => {
-        cb(null, file.fieldname + '-' + Date.now())
+        cb(null, uuidv4() + path.extname(file.originalname));
     }
 });
-const upload = multer({ storage: storage });
-  
+const image_upload = multer({ storage });
 
-
-router.post("/", ensureAuthenticated, upload.single('image'), async (req, res, next) => {
+router.post("/", ensureAuthenticated, async (req, res, next) => {
 
     try {            
-        console.log(req.file);
         const {title, text, ingredients} = req.body;
 
         const recipe = await Recipe.create({
@@ -29,11 +29,9 @@ router.post("/", ensureAuthenticated, upload.single('image'), async (req, res, n
             text,
             ingredients,
             author: req.user._id,
-            image: file.req.path
-
         });
-
-        const recipes = await User.findByIdAndUpdate(req.user._id, {
+        
+        await User.findByIdAndUpdate(req.user._id, {
             $addToSet: { recipes: recipe._id }
         });
 
@@ -46,6 +44,55 @@ router.post("/", ensureAuthenticated, upload.single('image'), async (req, res, n
         return res.status(400).json({
             err
         })
+    }
+
+});
+
+async function verifyAuthor(req, res, next) {
+    try {            
+        const recipe = await Recipe.findById(req.params.recipe_id);
+        if (!recipe.author.equals(req.user._id)) {
+            return res.status(401).json({
+                err: "Not the author of this recipe.",
+            });
+        }
+        next();
+
+    } catch (err) {
+        return res.status(400).json({
+            err
+        });
+    }
+}
+
+router.post("/:recipe_id/image", ensureAuthenticated, verifyAuthor, image_upload.single('image'), async (req, res, next) => {
+
+    try {            
+        const recipe = await Recipe.findByIdAndUpdate(req.params.recipe_id, {
+            image: req.file.filename,
+        }, {new: true});
+        return res.status(201).json({
+            recipe,
+            msg: "Image uploaded successfully."
+        });
+    } catch (err) {
+        return res.status(400).json({
+            err
+        });
+    }
+
+});
+
+router.get("/:recipe_id/image", async (req, res, next) => {
+
+    try {            
+        const recipe = await Recipe.findById(req.params.recipe_id);
+        const filename = path.join(__dirname, '../images/', recipe.image);
+        return res.status(201).sendFile(filename);
+    } catch (err) {
+        return res.status(400).json({
+            err
+        });
     }
 
 });
