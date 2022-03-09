@@ -26,6 +26,23 @@ export default function Post({post}) {
  const likeHandler = ()=>{
      setLike(isLiked ? like-1 : like+1)
      setIsLiked(!isLiked)
+    if (isLiked) {
+        axios.post(SERVER_URL + '/api/recipes/' + post._id +'/unlike', {withCredentials: true})
+            .then(res => {
+                console.log(res.data);
+            })
+            .catch(err => {
+                console.log(err);
+            });
+    } else {
+        axios.post(SERVER_URL + '/api/recipes/' + post._id +'/like', {withCredentials: true})
+            .then(res => {
+                console.log(res.data);
+            })
+            .catch(err => {
+                console.log(err);
+            });
+    }
  }
 
   return (
