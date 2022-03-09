@@ -68,6 +68,7 @@ export default function Post({post}) {
         <div className="postWrapper">
             <div className="postTop">
                 <div className="postTopLeft">
+                    {/* <img className="postProfileImg" src= {user.profilePicture || "assets/person/noavatar.png"} alt="" /> */}
                     <span className="postUserName">
                         {post.author.username}
                     </span>
@@ -80,7 +81,8 @@ export default function Post({post}) {
             <div className="postCenter">
                 <span className="postTitle">{post?.title}{"\n"}</span>
                 <span className="postText">{post?.text}</span>
-                <img className="postImg" src={post.photo} alt="" />
+                <img className="postImg" src={post.image || "assets/food/sushi.png"} alt="" />
+                <span className="ingredients">Ingredients: {post?.ingredients}</span>
             </div>
             <div className="postBottom">
                 <div className="postBottomLeft">
@@ -111,6 +113,9 @@ export default function Post({post}) {
                     <input id="commentField" placehoder="have a comment?" type="text" className="commentInput"/>
                     <button className="commentButton" onClick={commentClick}>Post Comment</button>
                     </form>
+                </div>
+                <div className="postBottomRight">
+                    <span className="postCommentText"> <div>{post.commets}</div> comments</span>
                 </div>
             </div>
         </div>       

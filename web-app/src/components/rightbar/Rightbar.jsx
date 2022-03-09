@@ -1,11 +1,26 @@
+import axios from "axios";
+import Post from "../post/Post";
 import "./rightbar.css";
 import {Users} from "../../dummyData";
 import Online from "../online/Online";
 import RateReviewIcon from '@mui/icons-material/RateReview';
+import { useEffect, useState } from "react";;
 
-
+const SERVER_URL = process.env.REACT_APP_SERVER_URL;
 
 export default function Rightbar({profile}) {
+
+  const [users, setUser] = useState([]);
+
+  useEffect(()=>{
+    const fetchUser= async() => {
+      const res = await axios.get(SERVER_URL + `/api/users/`);
+      setUser(res.data.users)
+      console.log(res)
+    };
+    fetchUser();
+  },[])
+
 
   const HomeRightbar = () => {
     return(
@@ -19,9 +34,9 @@ export default function Rightbar({profile}) {
               </div>     
 
               <hr className="rightbarHr"/>
-              <h4 className="rightbarTitle">Online Friends</h4>
+              <h4 className="rightbarTitle">People you should follow</h4>
               <ul className="rightbarFriendList"> 
-                {Users.map((u) => (
+                {users.map((u) => (
                   <Online key={u.id} user={u}/>
                 ))}               
               </ul>

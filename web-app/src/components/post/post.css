@@ -60,6 +60,10 @@
     object-fit: contain;
 }
 
+.ingredients{
+    font-size: 14px;
+}
+
 .postBottom{
     display: flex;
     align-items: center;
