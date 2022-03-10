@@ -11,11 +11,19 @@ const PATH_LOGOUT = SERVER_URL + '/api/users/logout';
 const PATH_SEARCH = SERVER_URL + '/api/recipes/';
  
 export default function Topbar() {
+  
+  const history = useHistory();
+    const routeChangeLogin = () =>{ 
+    let path = '/'; 
+    history.push(path);
+  }
+  
   const handleClick = async ()=> {
     try {
-      await axios.post(PATH_LOGOUT, {withCredentials: true})
+      await axios.post(PATH_LOGOUT, {}, {withCredentials: true})
         .then(res => {
-          console.log(res.data.ingredients)
+          console.log(res.data);
+          routeChangeLogin();
         })
         .catch(err => {
           console.log(err)
@@ -25,7 +33,6 @@ export default function Topbar() {
     }
   }
 
-  const history = useHistory();
     const routeChange = () =>{ 
     let path = '/searchresults'; 
     history.push(path);
