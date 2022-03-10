@@ -41,6 +41,9 @@ export default function Share() {
                             console.log(error);
                         });
                     }
+                    document.getElementById("titleField").value = '';
+                    document.getElementById("instructionField").value = '';
+                    document.getElementById("ingredientField").value = '';
                 })
                 .catch(err => {
                     console.log(err)
