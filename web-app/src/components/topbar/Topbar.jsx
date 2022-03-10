@@ -1,6 +1,7 @@
 import "./topbar.css"
 import { Search, Person, Chat, Notifications } from "@mui/icons-material"
 import axios from 'axios';
+import qs from 'qs';
 import { Input } from "@mui/material";
 
 const SERVER_URL = process.env.REACT_APP_SERVER_URL;
@@ -24,16 +25,22 @@ export default function Topbar() {
   }
 
   const keyHandler = async () => {
-    const textList = document.getElementById("inputField").value
-    //const userObject = {text: textList};
+    const textList = document.getElementById("textSearchField").value;
+    const ingredientList = document.getElementById("ingredientSearchField").value
+      .split(",").map(x => x.trim());
+    console.log(ingredientList);
+    console.log(qs.stringify(ingredientList, {arrayFormat: 'repeat'}));
     try{
-      //await axios.get(PATH_SEARCH, userObject)
-      await axios.get(PATH_SEARCH)
-      .then(res => {
-        var search = res.data.recipes.filter((input) => input.text === 'make some chicken');
-        console.log(search)
-        //console.log(res.data.recipes);
+      axios.get(PATH_SEARCH, { 
+        params: {
+          text: textList,
+          ingredients: ingredientList,
+        },
+        paramsSerializer: params => qs.stringify(params, {arrayFormat: 'repeat'})
       })
+      .then(res => {
+        console.log(res.data);
+      });
     }catch(error){
       console.log(error);
     }
@@ -50,7 +57,8 @@ export default function Topbar() {
               <button onClick= {keyHandler}>
                 <Search className="searchIcon"/> 
               </button>
-            <input id="inputField" type= "text" placeholder="Search for friend's recipe!" className="searchInput" />
+            <input id="textSearchField" type= "text" placeholder="Search for friend's recipe!" className="searchInput" />
+            <input id="ingredientSearchField" type= "text" placeholder="Find Recipes with these ingredients" className="searchInput" />
           </div>
         </div>
         <div className="topbarRight">
