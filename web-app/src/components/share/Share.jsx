@@ -21,22 +21,26 @@ export default function Share() {
         const ingredient_array = ingredient_text.split(',');
 
         const RecipeObject = {title: title_text, text: body_text, ingredients: ingredient_array};
-
-        const formData = new FormData();
-        formData.append('File', file);
         
         const textHandler = async () => {
-            await axios.post(SERVER_URL + "/api/recipes", RecipeObject, {withCredentials: true})
+            axios.post(SERVER_URL + "/api/recipes", RecipeObject, {withCredentials: true})
                 .then(res => {
                     console.log(res.data);
                     const recipe_id = res.data.recipe.id;
-                    {axios.post(SERVER_URL + '/api/recipes/' + recipe_id + '/image', {formData}, {withCredentials: true})
-                    .then(response => {
-                        console.log(response.data);
-                    })
-                    .catch(error => {
-                        console.log(error);
-                    });}
+                    if (file) {
+                        const formData = new FormData();
+                        formData.append('image', file);
+                        axios.post(SERVER_URL + '/api/recipes/' + recipe_id + '/image', formData, {
+                            withCredentials: true,
+                            'Content-Type': 'multipart/form-data',
+                        })
+                        .then(response => {
+                            console.log(response.data);
+                        })
+                        .catch(error => {
+                            console.log(error);
+                        });
+                    }
                 })
                 .catch(err => {
                     console.log(err)
