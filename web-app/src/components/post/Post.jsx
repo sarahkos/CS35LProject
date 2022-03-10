@@ -79,10 +79,11 @@ export default function Post({post}) {
                 </div>
             </div>
             <div className="postCenter">
-                <span className="postTitle">{post?.title}{":"}{"\n"}</span>
-                <span className="postText">{post?.text}</span>
+                <span className="postTitle"><u>{post?.title}</u></span>
                 <img className="postImg" src={'images/' + (post.image || null)} alt="" />
-                <span className="ingredients">Ingredients: {post?.ingredients}</span>
+                <span className="ingredients"><b>Ingredients:</b> {post?.ingredients +', '}</span>
+                <br/> <br/>
+                <pre className="postText">{post?.text}</pre>
             </div>
             <div className="postBottom">
                 <div className="postBottomLeft">
@@ -115,7 +116,7 @@ export default function Post({post}) {
                     </form>
                 </div>
                 <div className="postBottomRight">
-                    <span className="postCommentText"> <div>{post.commets}</div> comments</span>
+                    {/*<span className="postCommentText"> <div>{post.commets}</div> comments</span>*/}
                 </div>
             </div>
         </div>       
