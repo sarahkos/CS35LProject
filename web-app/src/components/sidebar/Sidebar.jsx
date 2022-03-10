@@ -56,7 +56,7 @@ export default function Sidebar() {
               <ul className="sidebarFriendList">
                 {user.recipes?.map(recipe=>(
                   <li className="sidebarFriend">
-                    <img className="sidebarFriendImg" src={recipe.image} alt="" />
+                    <img className="sidebarFriendImg" src={"images/" + (recipe.image || "default.png")} alt="" />
                     <span className="sidebarFriendName">{recipe.title}</span>
                   </li>
                 ))}
