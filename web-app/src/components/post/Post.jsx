@@ -79,7 +79,7 @@ export default function Post({post}) {
                 </div>
             </div>
             <div className="postCenter">
-                <span className="postTitle">{post?.title}{"\n"}</span>
+                <span className="postTitle">{post?.title}{":"}{"\n"}</span>
                 <span className="postText">{post?.text}</span>
                 <img className="postImg" src={post.image || "assets/food/sushi.png"} alt="" />
                 <span className="ingredients">Ingredients: {post?.ingredients}</span>
