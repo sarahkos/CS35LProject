@@ -53,7 +53,9 @@ router.get("/self/feed", ensureAuthenticated, async (req, res, next) => {
         })
         .sort({ date: "desc" })
         .skip((page - 1) * limit)
-        .limit(limit);
+        .limit(limit)
+        .populate("author");
+        
         return res.status(200).json({
             feed,
             msg: "Feed retrieved successfully."
