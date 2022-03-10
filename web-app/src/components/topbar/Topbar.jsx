@@ -2,7 +2,8 @@ import "./topbar.css"
 import { Search, Person, Chat, Notifications } from "@mui/icons-material"
 import axios from 'axios';
 import qs from 'qs';
-import { Input } from "@mui/material";
+import { useHistory } from 'react-router-dom';
+import { Input, modalUnstyledClasses } from "@mui/material";
 
 const SERVER_URL = process.env.REACT_APP_SERVER_URL;
 const PATH_LOGOUT = SERVER_URL + '/api/users/logout';
@@ -22,6 +23,12 @@ export default function Topbar() {
     }catch (error){
       console.log(error);
     }
+  }
+
+  const history = useHistory();
+    const routeChange = () =>{ 
+    let path = '/searchresults'; 
+    history.push(path);
   }
 
   const keyHandler = async () => {
@@ -44,6 +51,7 @@ export default function Topbar() {
     }catch(error){
       console.log(error);
     }
+    routeChange();
   }
 
   return (

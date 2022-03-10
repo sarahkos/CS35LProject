@@ -4,6 +4,7 @@ import LoginPage from "./pages/loginpage/loginpage";
 import CreateAccount from "./pages/createaccount/createaccount"
 import UpdateProfile from "./pages/updateprofile/updateprofile"
 import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
+import SearchResultsFeed from "./pages/searchresults/searchresults";
 
 function App() {
     return (
@@ -21,6 +22,9 @@ function App() {
                     </Route>
                     <Route path='/updateprofile'>
                         <UpdateProfile />
+                    </Route>
+                    <Route path='/searchresults'>
+                        <SearchResultsFeed />
                     </Route>
                 </Switch>
             </div>
