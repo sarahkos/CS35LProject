@@ -13,7 +13,7 @@ const PATH_NEWUSER = SERVER_URL + '/api/users/login';
 export default function LoginPage(){
     const [userName, setUsername] = useState("");
     const [password, setPassword] = useState("");
-    const [success, setSuccess] = useState(false);
+    //const [success, setSuccess] = useState(false);
     //const [errorMessage, setErrorMessage] = useState("");
 
     const userObject = {username: userName, password: password};
@@ -30,19 +30,20 @@ export default function LoginPage(){
 
     const handleSignIn = async (event) =>{
         event.preventDefault();
-        try {
-            let response = await axios.post(PATH_NEWUSER, userObject, {withCredentials: true})
-            console.log(response.data);
-            setSuccess(true);
-            //Empty the Input Boxes on the Login Page after Sign In
-            setUsername('');
-            setPassword('');
-        }catch (error){
-            console.log(error);
-        }
-        if(success) {
-            routeChange();
-        }
+        await axios.post(PATH_NEWUSER, userObject, {withCredentials: true})
+            .then(res => {
+                console.log(res.data);
+                //setSuccess(true);
+                setUsername('');
+                setPassword('');
+                routeChange();
+            })
+            .catch(err => {
+                console.log(err);
+            });
+            
+            
+        
     };
 
     /*
