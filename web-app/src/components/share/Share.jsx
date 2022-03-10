@@ -64,9 +64,13 @@ export default function Share() {
             <div className="shareTop">
                 <span className="shareOptionText">Share a Recipe</span>
                 <form>
+                <div className="shareContainer">
                     <input id="titleField" placeholder="Title" className="shareInput"/>
+                    {/* <hr className="titleHr"/> */}
                     <input id="ingredientField" placeholder="Ingredients as comma separated list" className="shareInput" />
-                    <textarea id="instructionField" placeholder="Instructions" className="shareInput" />
+                    {/* <hr className="titleHr"/> */}
+                    <textarea id="instructionField" placeholder="Instructions" className="ingredientInput" />
+                    </div>   
                 </form>
                 {/* ref ={desc} */}
             </div>

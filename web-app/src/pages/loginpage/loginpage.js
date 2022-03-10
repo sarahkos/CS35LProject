@@ -92,7 +92,7 @@ export default function LoginPage(){
                             onChange={(event) => setPassword(event.target.value)}> 
                         </input>
                         <p> </p>
-                        <button type = "submitClick" className= "submitButton" disabled={!checkRequirements()}> Sign In</button>
+                        <button type = "submitClick" className= "submitButtonSignIn" disabled={!checkRequirements()}> Sign In</button>
                     </form>
                     <p required className="message"> Don't have an Account? </p>
                     <Link to='/createaccount'> Create new Account </Link>

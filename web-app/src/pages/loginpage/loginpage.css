@@ -70,7 +70,17 @@ p{
     justify-content: center;
 }
 
-.submitButton{
-    margin-top: 50px;
-    margin-left: 45px;
+.submitButtonSignIn{
+    background-color: #e9e5de;
+    color: black;
+    font-weight: bold;
+    font-size: large;
+    display: flex;
+    justify-content: center;
+    border-radius: 8px;
+    height: 30px;
+    width: 100px;
+    align-items: center;
+    margin-left: auto;
+    margin-right: auto;
 }
