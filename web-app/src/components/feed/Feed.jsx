@@ -13,9 +13,15 @@ export default function Feed() {
 
   useEffect(()=>{
     const fetchPosts = async() => {
-      const res = await axios.get(SERVER_URL + '/api/recipes');
-      setPosts(res.data.recipes)
-      console.log(res)
+      const res = await axios.get(SERVER_URL + '/api/users/self/feed', {withCredentials: true})
+        .then(res => {
+          setPosts(res.data.feed);
+          console.log(res.data);
+        })
+        .catch(err => {
+          console.log(err);
+        })
+      
     };
     fetchPosts();
   },[])
