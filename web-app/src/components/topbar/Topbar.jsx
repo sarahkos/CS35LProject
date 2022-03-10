@@ -13,7 +13,7 @@ const PATH_SEARCH = SERVER_URL + '/api/recipes/';
 export default function Topbar() {
   
   const history = useHistory();
-    const routeChangeLogin = () =>{ 
+  const routeChangeLogin = () =>{ 
     let path = '/'; 
     history.push(path);
   }
@@ -33,9 +33,11 @@ export default function Topbar() {
     }
   }
 
-    const routeChange = () =>{ 
-    let path = '/searchresults'; 
-    history.push(path);
+    const routeChangeSearch = (params) =>{ 
+    history.push({
+      pathname: '/search',
+      search: params
+    });
   }
 
   const keyHandler = async () => {
@@ -43,22 +45,24 @@ export default function Topbar() {
     const ingredientList = document.getElementById("ingredientSearchField").value
       .split(",").map(x => x.trim());
     console.log(ingredientList);
-    console.log(qs.stringify(ingredientList, {arrayFormat: 'repeat'}));
-    try{
-      axios.get(PATH_SEARCH, { 
-        params: {
-          text: textList,
-          ingredients: ingredientList,
-        },
-        paramsSerializer: params => qs.stringify(params, {arrayFormat: 'repeat'})
-      })
-      .then(res => {
-        console.log(res.data);
-      });
-    }catch(error){
-      console.log(error);
+    const params = {
+      text: textList,
+      ingredients: ingredientList,
     }
-    routeChange();
+    routeChangeSearch(qs.stringify(params, {arrayFormat: 'repeat'}));
+    // try{
+    //   axios.get(PATH_SEARCH, { 
+    //     params: {
+    //       text: textList,
+    //       ingredients: ingredientList,
+    //     },
+    //     paramsSerializer: params => qs.stringify(params, {arrayFormat: 'repeat'})
+    //   })
+    //   .then(res => {
+    //   });
+    // } catch(error) {
+    //   console.log(error);
+    // }
   }
 
   return (

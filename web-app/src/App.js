@@ -8,7 +8,7 @@ import SearchResultsFeed from "./pages/searchresults/searchresults";
 
 function App() {
     return (
-        <Router> 
+        <Router forceRefresh={true}> 
             <div className="App">
                 <Switch>
                     <Route exact path="/"> 
@@ -23,7 +23,7 @@ function App() {
                     <Route path='/updateprofile'>
                         <UpdateProfile />
                     </Route>
-                    <Route path='/searchresults'>
+                    <Route path='/search'>
                         <SearchResultsFeed />
                     </Route>
                 </Switch>
