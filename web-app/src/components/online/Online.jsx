@@ -1,6 +1,6 @@
 import axios from "axios";
 import "./online.css"
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 
 export default function Online({user}) {
 
@@ -8,6 +8,21 @@ export default function Online({user}) {
     const [isFollowed, setIsFollowed] = useState(false)
 
   const SERVER_URL = process.env.REACT_APP_SERVER_URL;
+
+  const [currentUser ,setUser] = useState([])  
+
+  useEffect(()=>{
+    const fetchUser = async() => {
+      const res = await axios.get(SERVER_URL + '/api/users/self', {withCredentials: true});
+      setUser(res.data.user)
+      console.log(res)
+    };
+    fetchUser();
+  },[])
+
+    useEffect(()=>{
+        setIsFollowed(user.followers.includes(currentUser.id))
+    },[user.username,currentUser.id])
 
   const followHandler = ()=>{
     setFollow(isFollowed)
