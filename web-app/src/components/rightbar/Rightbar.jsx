@@ -25,7 +25,7 @@ export default function Rightbar({profile}) {
   const HomeRightbar = () => {
     return(
       <>
-      <div className="myReviewsContainer">
+      {/*<div className="myReviewsContainer">
                 <RateReviewIcon className="myReviewsImg"/>
                 <span className="myReviewsText">
                   {" "}
@@ -33,7 +33,7 @@ export default function Rightbar({profile}) {
                 </span>
               </div>     
 
-              <hr className="rightbarHr"/>
+    <hr className="rightbarHr"/>*/}
               <h4 className="rightbarTitle">People you should follow</h4>
               <ul className="rightbarFriendList"> 
                 {users.map((u) => (

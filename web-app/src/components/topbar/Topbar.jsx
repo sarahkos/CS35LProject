@@ -65,6 +65,11 @@ export default function Topbar() {
     // }
   }
 
+  const routeChangeHome = () => {
+    let path = '/Home'; 
+    history.push(path);
+  }
+
   return (
     <div className="topbarContainer">
         <div className="topbarLeft">
@@ -82,8 +87,7 @@ export default function Topbar() {
         </div>
         <div className="topbarRight">
           <div className="topbarLinks">
-            <span className="topbarLink">Homepage</span>
-            <span className="topbarLink">Timeline</span>           
+            <span className="topbarLink" onClick={routeChangeHome}>Homepage</span>
           </div>
           <div className="topbarIcons">
             {/* <div className="topbarIconItem">
