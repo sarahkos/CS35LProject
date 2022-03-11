@@ -95,7 +95,7 @@ export default function Post({post}) {
                 <img className="postImg" src={'images/' + (post.image || null)} alt="" />
                 <span className="ingredients"><b>Ingredients:</b> {post?.ingredients.join(', ')}</span>
                 <br/> <br/>
-                <pre className="postText">{post?.text}</pre>
+                <span className="postText">{post?.text}</span>
             </div>
             <div className="postBottom">
                 <div className="postBottomLeft">
