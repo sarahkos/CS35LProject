@@ -71,6 +71,7 @@ export default function Post({post}) {
     axios.post(SERVER_URL + '/api/recipes/' + post._id + '/comments', {comment}, {withCredentials: true})
         .then(res => {
             console.log(res.data);
+            setComments(res.data.comments);
         })
         .catch(err => {
             console.log(err);
@@ -123,8 +124,8 @@ export default function Post({post}) {
                 <div className="commentBottom">
                     <form>
                     <input id="commentField" placehoder="have a comment?" type="text" className="commentInput"/>
-                    <button className="commentButton" onClick={commentClick}>Post Comment</button>
                     </form>
+                    <button className="commentButton" onClick={commentClick}>Post Comment</button>
                 </div>
                 <div className="postBottomRight">
                     {/*<span className="postCommentText"> <div>{post.commets}</div> comments</span>*/}
