@@ -53,7 +53,7 @@ export default function Online({user}) {
             <span className="rightbarOnline"></span>
         </div>
         <span className="rightbarUsername">{user.username}</span>
-        <button className="followButton" type="submit" onClick={followHandler}>{(isFollowed ? "unFollow" : "Follow")}</button>
+        <button className="followButton" type="submit" onClick={followHandler}>{(isFollowed ? "Unfollow" : "Follow")}</button>
     </li>
   )
 }
