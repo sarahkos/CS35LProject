@@ -125,4 +125,11 @@
 
 .commentText{
     font-size: 12px;
+    overflow-wrap: break-word;
+    word-break: break-all;
+}
+
+.commentInput{
+    word-break: break-all;
+    text-overflow: ellipsis;
 }

@@ -125,7 +125,7 @@ export default function Post({post}) {
                 </div>
                 <div className="commentBottom">
                     <form>
-                    <input id="commentField" placehoder="have a comment?" type="text" className="commentInput"/>
+                    <input id="commentField" placeholder="have a comment?" type="text" className="commentInput"/>
                     <button className="commentButton" onClick={commentClick}>Post Comment</button>
                     </form>
                 </div>
