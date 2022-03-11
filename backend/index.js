@@ -12,10 +12,11 @@ const recipesRouter = require('./routes/recipes');
 
 require('dotenv').config({ path: './config.env' });
 const port = process.env.PORT || 5000;
+const frontendDomain = process.env.FRONTEND_DOMAIN || "http://localhost:3000";
 
 app.use(cors({
     credentials: true,
-    origin: process.env.FRONTEND_DOMAIN,
+    origin: frontendDomain,
 }));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
