@@ -15,31 +15,37 @@ export default function Rightbar({profile}) {
   useEffect(()=>{
     const fetchUser= async() => {
       const res = await axios.get(SERVER_URL + `/api/users/`);
-      setUser(res.data.users)
-      console.log(res)
+      setUser(res.data.users);
+      console.log(res);
     };
     fetchUser();
-  },[])
+  },[]);
+
+  const changedUserSearch = async () => {
+    try {
+      const username = document.getElementById("userSearch").value;
+      const res = await axios.get(SERVER_URL + `/api/users/`, {
+        params: {
+          username
+        }
+      });
+      setUser(res.data.users);
+      console.log("asdasdasd");
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
 
   const HomeRightbar = () => {
     return(
       <>
-      {/*<div className="myReviewsContainer">
-                <RateReviewIcon className="myReviewsImg"/>
-                <span className="myReviewsText">
-                  {" "}
-                  My Reviews:
-                </span>
-              </div>     
-
-    <hr className="rightbarHr"/>*/}
-              <h4 className="rightbarTitle">People you should follow</h4>
-              <ul className="rightbarFriendList"> 
-                {users.map((u) => (
-                  <Online key={u.id} user={u}/>
-                ))}               
-              </ul>
+        <h4 className="rightbarTitle">People you should follow</h4>
+        <ul className="rightbarFriendList"> 
+          {users.map((u) => (
+            <Online key={u.id} user={u}/>
+          ))}               
+        </ul>
       </>
     )  
   };
@@ -96,6 +102,7 @@ export default function Rightbar({profile}) {
   return (
         <div className="rightbar">
             <div className="rightbarWrapper">
+              <input id="userSearch" type= "text" placeholder="Search for a user" className="searchInput" onChange={changedUserSearch}/>
               {profile ? <ProfileRightbar/> : <HomeRightbar/>}
             </div>
         </div>
