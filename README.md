@@ -32,7 +32,7 @@
 
 1. Navigate to the `web-app` directory: `cd web-app`
 2. Install required packages: `npm i`
-3. Create the file `config.env` with the line:
+3. Create the file `.env` with the line:
 
     `REACT_APP_SERVER_URL=<server address>`
 
