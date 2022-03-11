@@ -11,7 +11,7 @@ const usersRouter = require('./routes/users');
 const recipesRouter = require('./routes/recipes');
 
 require('dotenv').config({ path: './config.env' });
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 5000;
 
 app.use(cors({
     credentials: true,
