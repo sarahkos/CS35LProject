@@ -88,9 +88,6 @@ export default function Post({post}) {
                     </span>
                     <span className="postDate">{format(post.date)}</span>
                 </div>
-                <div className="postTopRight">
-                    <MoreVert />
-                </div>
             </div>
             <div className="postCenter">
                 <span className="postTitle"><u>{post?.title}</u></span> <br/>
