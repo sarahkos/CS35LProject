@@ -123,12 +123,7 @@ export default function Post({post}) {
                 </div>
                 <div className="commentBottom">
                     <form>
-<<<<<<< HEAD
-                    <input id="commentField" placeholder="have a comment?" type="text" className="commentInput"/>
-                    <button className="commentButton" onClick={commentClick}>Post Comment</button>
-=======
                     <input id="commentField" placehoder="have a comment?" type="text" className="commentInput"/>
->>>>>>> 81cf7397ac30b01e1e2f492c3c697d75d9dcdf6b
                     </form>
                     <button className="commentButton" onClick={commentClick}>Post Comment</button>
                 </div>
