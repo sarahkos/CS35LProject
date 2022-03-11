@@ -71,6 +71,7 @@ export default function Post({post}) {
     axios.post(SERVER_URL + '/api/recipes/' + post._id + '/comments', {comment}, {withCredentials: true})
         .then(res => {
             console.log(res.data);
+            setComments(res.data.comments);
         })
         .catch(err => {
             console.log(err);
@@ -88,14 +89,11 @@ export default function Post({post}) {
                     </span>
                     <span className="postDate">{format(post.date)}</span>
                 </div>
-                <div className="postTopRight">
-                    <MoreVert />
-                </div>
             </div>
             <div className="postCenter">
                 <span className="postTitle"><u>{post?.title}</u></span> <br/>
                 <img className="postImg" src={'images/' + (post.image || null)} alt="" />
-                <span className="ingredients"><b>Ingredients:</b> {post?.ingredients +', '}</span>
+                <span className="ingredients"><b>Ingredients:</b> {post?.ingredients.join(', ')}</span>
                 <br/> <br/>
                 <pre className="postText">{post?.text}</pre>
             </div>
@@ -125,9 +123,14 @@ export default function Post({post}) {
                 </div>
                 <div className="commentBottom">
                     <form>
+<<<<<<< HEAD
                     <input id="commentField" placeholder="have a comment?" type="text" className="commentInput"/>
                     <button className="commentButton" onClick={commentClick}>Post Comment</button>
+=======
+                    <input id="commentField" placehoder="have a comment?" type="text" className="commentInput"/>
+>>>>>>> 81cf7397ac30b01e1e2f492c3c697d75d9dcdf6b
                     </form>
+                    <button className="commentButton" onClick={commentClick}>Post Comment</button>
                 </div>
                 <div className="postBottomRight">
                     {/*<span className="postCommentText"> <div>{post.commets}</div> comments</span>*/}

@@ -18,7 +18,7 @@ export default function Share() {
         const body_text = document.getElementById("instructionField").value;
         const ingredient_text = document.getElementById("ingredientField").value;
 
-        const ingredient_array = ingredient_text.split(',');
+        const ingredient_array = ingredient_text.split(',').map(ing => ing.trim());
 
         const RecipeObject = {title: title_text, text: body_text, ingredients: ingredient_array};
         

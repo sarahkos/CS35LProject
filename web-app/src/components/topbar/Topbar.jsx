@@ -33,7 +33,7 @@ export default function Topbar() {
     }
   }
 
-    const routeChangeSearch = (params) =>{ 
+  const routeChangeSearch = (params) => { 
     history.push({
       pathname: '/search',
       search: params
@@ -50,19 +50,6 @@ export default function Topbar() {
       ingredients: ingredientList,
     }
     routeChangeSearch(qs.stringify(params, {arrayFormat: 'repeat'}));
-    // try{
-    //   axios.get(PATH_SEARCH, { 
-    //     params: {
-    //       text: textList,
-    //       ingredients: ingredientList,
-    //     },
-    //     paramsSerializer: params => qs.stringify(params, {arrayFormat: 'repeat'})
-    //   })
-    //   .then(res => {
-    //   });
-    // } catch(error) {
-    //   console.log(error);
-    // }
   }
 
   const routeChangeHome = () => {

@@ -26,3 +26,5 @@ yarn-error.log*
 config.env
 
 /backend/images
+/web-app/public/images
+!/web-app/public/images/default.png

@@ -6,11 +6,18 @@ const { ensureAuthenticated } = require('./auth');
 
 router.get("/", async (req, res, next) => {
 
-    var { page, limit } = req.query;
+    var { page, limit, username } = req.query;
     page = page || 1;
     limit = limit || 10;
 
     var filters = {};
+
+    if (username) {
+        filters.username = {
+            "$regex": username,
+            "$options": "i",
+        };
+    }
 
     try {    
         const users = await User.find(filters)

@@ -11,7 +11,7 @@ const SERVER_URL = process.env.REACT_APP_SERVER_URL;
 const PATH_SEARCH = SERVER_URL + '/api/recipes/';
 
 export default function SearchResultsFeed() {
-    const [results,setResults] = useState([])  
+    const [results,setResults] = useState([]);
     const search_args = useLocation().search;
     console.log(search_args);
     
