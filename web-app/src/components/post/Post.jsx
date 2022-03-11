@@ -13,6 +13,20 @@ export default function Post({post}) {
   const [user, setUser] = useState({});
   const [comments, setComments] = useState([]);
 
+  const [currentUser ,setCurrentUser] = useState([])  
+
+  useEffect(()=>{
+    const fetchUser = async() => {
+      const res = await axios.get(SERVER_URL + '/api/users/self', {withCredentials: true});
+      setCurrentUser(res.data.user)
+      console.log(res)
+    };
+    fetchUser();
+  },[])
+
+  useEffect(()=>{
+    setIsLiked(post.liked.includes(currentUser.id))
+},[currentUser.id,post.liked])
 
   useEffect(()=>{
     let isMounted = true;
@@ -87,8 +101,8 @@ export default function Post({post}) {
             </div>
             <div className="postBottom">
                 <div className="postBottomLeft">
-                    <img className="likeIcon" src="assets/like.png" onClick={likeHandler} alt="" />
-                    <img className="likeIcon" src="assets/heart.png" onClick={likeHandler} alt="" />
+                    {/* <img className="likeIcon" src="assets/like.png" onClick={likeHandler} alt="" /> */}
+                    <img className="likeIcon" src={(isLiked ? "assets/dislike.png" : "assets/like.png")} onClick={likeHandler}/>
                     <space className="postLikeCounter">{like} people like it</space>
                 </div>
             </div>

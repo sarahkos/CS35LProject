@@ -22,7 +22,7 @@ export default function Online({user}) {
 
     useEffect(()=>{
         setIsFollowed(user.followers.includes(currentUser.id))
-    },[user.username,currentUser.id])
+    },[currentUser.id,user.followers])
 
   const followHandler = ()=>{
     setFollow(isFollowed)

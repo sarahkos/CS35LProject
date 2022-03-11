@@ -1,6 +1,7 @@
 import Topbar from '../../components/topbar/Topbar'
 import Sidebar from '../../components/sidebar/Sidebar'
 import Rightbar from '../../components/rightbar/Rightbar'
+import Searchfeed from '../../components/searchfeed/Searchfeed'
 import Post from '../../components/post/Post'
 import {useLocation , useHistory} from 'react-router-dom';
 import { useEffect, useState } from 'react'
@@ -34,11 +35,12 @@ export default function SearchResultsFeed() {
             <Topbar/>
             <div className="homeContainer">
                 <Sidebar/>
-                <div className= "searchresultsFeed">
+                <Searchfeed/>
+                {/* <div className= "searchresultsFeed">
                     {results.map((p) => (
                         <Post key={p._id} post={p}/>
                     ))}
-                </div>
+                </div> */}
                 <Rightbar/>
             </div>
         </>
