@@ -92,7 +92,7 @@ export default function Post({post}) {
             <div className="postCenter">
                 <span className="postTitle"><u>{post?.title}</u></span> <br/>
                 <img className="postImg" src={'images/' + (post.image || null)} alt="" />
-                <span className="ingredients"><b>Ingredients:</b> {post?.ingredients +', '}</span>
+                <span className="ingredients"><b>Ingredients:</b> {post?.ingredients.join(', ')}</span>
                 <br/> <br/>
                 <pre className="postText">{post?.text}</pre>
             </div>
